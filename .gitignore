@@ -135,4 +135,4 @@ config.py
 config.json
 secrets.json
 
-docs/
+/docs
