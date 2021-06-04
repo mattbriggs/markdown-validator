@@ -1,0 +1,114 @@
+{
+    "rules": 
+    {"header" : [
+        {
+            "name" : "The-mstopic-attribute-has-a-value-of-tutorial",
+            "id": "1",
+            "query": "ms.topic",
+            "flag" : "value",
+            "operation" : "==",
+            "value" : "tutorial",
+            "level": "Required",
+            "mitigation": "You must have an author in your document."
+        },
+        {
+            "name" : "The-title-attribute-value-includes-word-tutorial",
+            "id": "2",
+            "query": "title",
+            "flag" : "value",
+            "operation" : "[]",
+            "value" : "tutorial",
+            "level": "Required",
+            "mitigation": "You must have an author in your document."
+        },
+        {
+            "name" : "The-description-attribute-value-includes-the-word-tutorial",
+            "id": "3",
+            "query": "description",
+            "flag" : "value",
+            "operation" : "[]",
+            "value" : "tutorial",
+            "level": "Required",
+            "mitigation": "You must have an author in your document."
+        },
+        {
+            "name" : "The-msdate-attribute-reflects-the-current-week",
+            "id": "4",
+            "query": "ms.date",
+            "flag" : "date",
+            "operation" : "<",
+            "value" : "7",
+            "level": "Required",
+            "mitigation": "You must have an author in your document."
+        },
+        {
+            "name" : "The-customer-intent-statement-is-a-markdown-comment-in-the-last-line-in-the-metadata-section",
+            "id": "5",
+            "query": "intent",
+            "flag" : "check",
+            "operation" : "",
+            "value" : "",
+            "level": "Required",
+            "mitigation": "You must have an author in your document."
+        }
+    ],
+    "body": [
+        {
+            "name" : "must-have-h1",
+            "id": "6",
+            "query": "/html/body/h1",
+            "flag" : "count",
+            "operation" : "==",
+            "value" : "1",
+            "level": "Required",
+            "mitigation": "You must have one H1 in your document."
+        }, 
+        {
+            "name" : "more-than-one-h1",
+            "id": "7",
+            "query": "/html/body/h2",
+            "flag" : "count",
+            "operation" : ">",
+            "value" : "1",
+            "level": "Required",
+            "mitigation": "You must have more than 1 H2 in your document."
+        },
+        {
+            "name" : "must-have-next-steps",
+            "id": "8",
+            "query": "/html/body/h2[last()]",
+            "flag" : "text",
+            "operation" : "==",
+            "value" : "Next steps",
+            "level": "Required",
+            "mitigation": "The last H2 must be say 'Next Steps'"
+        }
+    ]},
+    "workflows": [
+        {
+            "name" : "The-mstopic-attribute-has-a-value-of-tutorial            ",
+            "type" : "header",
+            "steps" : "S->1,1->E"
+        },
+        {
+            "name" : "The-title-attribute-value-includes-word-tutorial",
+            "type" : "header",
+            "steps" : "S->2,2->E"
+        },
+        {
+            "name" : "The-description-attribute-value-includes-the-word-tutorial",
+            "type" : "header",
+            "steps" : "S->3,3->E"
+        },
+        {
+            "name" : "The-msdate-attribute-reflects-the-current-week",
+            "type" : "header",
+            "steps" : "S->4,4->E"
+        },
+        {
+            "name" : "The-customer-intent-statement-is-a-markdown-comment-in-the-last-line-in-the-metadata-section",
+            "type" : "header",
+            "steps" : "S->5,5->E"
+        }
+    ]
+}

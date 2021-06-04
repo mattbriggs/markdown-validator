@@ -127,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+#markdown-validator ignores
+
+nobodycomesin.py
+config.py
+config.json
+secrets.json

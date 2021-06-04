@@ -1,0 +1,64 @@
+{
+    "rules": 
+    {"header" : [
+        {
+            "name" : "check-author",
+            "id": "1",
+            "query": "author",
+            "flag" : "",
+            "operation" : "==",
+            "value" : "PatAltimore",
+            "level": "Required",
+            "mitigation": "You must have an author in your document."
+        }
+    ],
+    "body": [
+        {
+            "name" : "must-have-h1",
+            "id": "2",
+            "query": "/html/body/h1",
+            "flag" : "count",
+            "operation" : "==",
+            "value" : "1",
+            "level": "Required",
+            "mitigation": "You must have one H1 in your document."
+        }, 
+        {
+            "name" : "more-than-one-h1",
+            "id": "3",
+            "query": "/html/body/h2",
+            "flag" : "count",
+            "operation" : ">",
+            "value" : "1",
+            "level": "Required",
+            "mitigation": "You must have more than 1 H2 in your document."
+        },
+        {
+            "name" : "must-have-next-steps",
+            "id": "4",
+            "query": "/html/body/h2[last()]",
+            "flag" : "text",
+            "operation" : "==",
+            "value" : "Next steps",
+            "level": "Required",
+            "mitigation": "The last H2 must be say 'Next Steps'"
+        }
+    ]},
+    "workflows": [
+        {
+            "name" : "check-h1",
+            "type" : "body",
+            "steps" : "2;"
+        },
+        {
+            "name" : "check-red-shirt-bolo-tie",
+            "type" : "body",
+            "steps" : "2;3;4;"
+        },
+        {
+            "name" : "check-thing",
+            "type" : "body",
+            "steps" : "3;4;"
+        }
+    ]
+}
