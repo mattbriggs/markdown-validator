@@ -38,7 +38,7 @@ def process_xpath(inrawbody, query, in_value):
     '''With raw markdown file and docs metadata block, turn just the body as the indicated 
     format, html, text, or markown'''
     try:
-        body = MU.get_textfromMD(inrawbody)
+        body = MU.get_textfromfile(inrawbody)
         html_doc = markdown.markdown(body)
         htmlparser = etree.HTMLParser()
         tree = etree.fromstring(html_doc, htmlparser)
@@ -120,7 +120,7 @@ def process_check(inrawbody, query, evaluate):
 def make_html(inrawbody, target):
     '''Make HTML (this is will be depracted)'''
     try:
-        body = MU.get_textfromMD(inrawbody)
+        body = MU.get_textfromfile(inrawbody)
         html_doc = markdown.markdown(body)
         MU.write_text(html_doc, target)
         return "Saving file to: {}".format(target)

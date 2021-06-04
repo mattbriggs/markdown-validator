@@ -6,8 +6,6 @@
 '''
 
 import json
-import sys
-sys.path.insert(0, 'tools-development\common')
 from lxml import etree
 import mod_utilities as MU
 import mdparser as PA

@@ -5,57 +5,9 @@ First version to run with complex workflows.
 '''
 
 import json
-import sys
-sys.path.insert(0, 'tools-development\common')
-import mod_utilities as MU
 import mdhandler as HA
 import mdrunner as RUN
 import mdrules as RU
-
-
-def x_run_rules():
-    '''procedure to run the rules'''
-
-    print("=======Checking File=======\n")
-
-    for i in my_check["rules"]["header"]:
-        handler = HA.MDHandler()
-        md_page = handler.get_page(file_to_check)
-        check_rule = handler.eval_ask(md_page.metadata, i['query'], i['operation'], i['value'])
-        if check_rule:
-            print("Rule: {} Passed: {}".format(i["id"], check_rule))
-        else:
-            print("Rule: {} Passed: {}\n-->Fix: {}".format(i["id"], check_rule, i["mitigation"]))
-
-    for i in my_check["rules"]["body"]:
-        handler = HA.MDHandler()
-        md_page = handler.get_page(file_to_check)
-        check_rule = handler.eval_query(md_page.html, i['query'],  i['flag'], i['operation'], i['value'])
-        if check_rule:
-            print("Rule: {} Passed: {}".format(i["id"], check_rule))
-        else:
-            print("Rule: {} Passed: {}\n-->Fix: {}".format(i["id"], check_rule, i["mitigation"]))
-
-    print("=======End=======")
-
-
-def x_run_workflows(in_json, rule_json, file_to_check):
-    '''procedure to run the workflows'''
-    runstate = {"state" : "new", "pass" : False }
-    for i in in_json["workflows"]:
-        steps = i["steps"].split(";")
-        for step in steps:
-            if step:
-                print("Workflow: {} Step: {}".format(i["name"],step))
-                a_rule = rule_json[step]
-                if i["type"] == "body":
-                    runstate = run_rule_body(a_rule, file_to_check, runstate)
-                elif i["type"] == "header":
-                    runstate = run_rule_header(a_rule, file_to_check, runstate)
-                else:
-                    print("Need to specify rule.")
-    runstate["state"] = "complete"
-    return runstate
 
 
 def parse_steps(insteps):
@@ -71,7 +23,7 @@ def parse_steps(insteps):
 
 def process_rule(rules, file_to_check, id):
     '''With a rule object loaded with rules, a path to a markdown file, and 
-    the a rule id, run the rules and return a validaton object.'''
+    the rule id, run the rules and return a validaton object.'''
     handler = HA.MDHandler()
     md_page = handler.get_page(file_to_check)
     if rules.rules[id].type == "header":
@@ -268,12 +220,20 @@ actions = { "s" : s,
 
 # get_workflows()
 
-file_to_check = r"C:\git\ms\Azure-Stack-Hub-Doc-Tools\tools-development\testdata\azure-stack-overview.md"
-therules = r"C:\git\ms\Azure-Stack-Hub-Doc-Tools\tools-development\rules\conceptv3.json"
+print("Test rule 2021.6.4\n")
+#file_to_check = r"C:\git\ms\azure-stack-docs-pr\azure-stack\aks-hci\deploy-linux-application.md"
+#file_to_check = input('File to check > ')
+
+# load rules
+with open(r"C:\git\mb\markdown-validator\rules\conceptv4.json", 'r') as json_file:
+  data = json.load(json_file)
+
 rules = RU.Rules()
-rules.load_rules(therules)
+rules.load_rules(data)
+print("Inventory of rules:  ")
 print(rules.list_of_rules)
 
-for i in rules.list_of_rules:
-    check_this = process_rule(rules, file_to_check, str(i))
-    print(check_this.state)
+for i in data["workflows"]:
+    print(i["name"])
+    run = run_workflow(i["steps"])
+    print(" State: {},  Value: {}, \n    Run history: {}\n\n".format(run.state, run.value, run.history))

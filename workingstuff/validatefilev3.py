@@ -13,6 +13,51 @@ import mdrunner as RUN
 import mdrules as RU
 
 
+def x_run_rules():
+    '''procedure to run the rules'''
+
+    print("=======Checking File=======\n")
+
+    for i in my_check["rules"]["header"]:
+        handler = HA.MDHandler()
+        md_page = handler.get_page(file_to_check)
+        check_rule = handler.eval_ask(md_page.metadata, i['query'], i['operation'], i['value'])
+        if check_rule:
+            print("Rule: {} Passed: {}".format(i["id"], check_rule))
+        else:
+            print("Rule: {} Passed: {}\n-->Fix: {}".format(i["id"], check_rule, i["mitigation"]))
+
+    for i in my_check["rules"]["body"]:
+        handler = HA.MDHandler()
+        md_page = handler.get_page(file_to_check)
+        check_rule = handler.eval_query(md_page.html, i['query'],  i['flag'], i['operation'], i['value'])
+        if check_rule:
+            print("Rule: {} Passed: {}".format(i["id"], check_rule))
+        else:
+            print("Rule: {} Passed: {}\n-->Fix: {}".format(i["id"], check_rule, i["mitigation"]))
+
+    print("=======End=======")
+
+
+def x_run_workflows(in_json, rule_json, file_to_check):
+    '''procedure to run the workflows'''
+    runstate = {"state" : "new", "pass" : False }
+    for i in in_json["workflows"]:
+        steps = i["steps"].split(";")
+        for step in steps:
+            if step:
+                print("Workflow: {} Step: {}".format(i["name"],step))
+                a_rule = rule_json[step]
+                if i["type"] == "body":
+                    runstate = run_rule_body(a_rule, file_to_check, runstate)
+                elif i["type"] == "header":
+                    runstate = run_rule_header(a_rule, file_to_check, runstate)
+                else:
+                    print("Need to specify rule.")
+    runstate["state"] = "complete"
+    return runstate
+
+
 def parse_steps(insteps):
     '''Take a raw set of steps and return as list of tuples.'''
     steps = insteps.split(",")
@@ -26,7 +71,7 @@ def parse_steps(insteps):
 
 def process_rule(rules, file_to_check, id):
     '''With a rule object loaded with rules, a path to a markdown file, and 
-    the rule id, run the rules and return a validaton object.'''
+    the a rule id, run the rules and return a validaton object.'''
     handler = HA.MDHandler()
     md_page = handler.get_page(file_to_check)
     if rules.rules[id].type == "header":
@@ -223,15 +268,17 @@ actions = { "s" : s,
 
 # get_workflows()
 
-print("Test rule 2021.6.3\n")
-file_to_check = input('File to check > ')
-therules = r"C:\git\ms\Azure-Stack-Hub-Doc-Tools\tools-development\rules\conceptv4.json"
-rules_raw = MU.get_textfromMD(therules)
-my_check=json.loads(rules_raw)
+file_to_check = r"C:\git\ms\Azure-Stack-Hub-Doc-Tools\tools-development\testdata\azure-stack-overview.md"
+therules = r"C:\git\ms\Azure-Stack-Hub-Doc-Tools\tools-development\rules\conceptv3.json"
+
+# load rules
+with open(r"C:\git\mb\markdown-validator\rules\conceptv3.json", 'r') as json_file:
+  data = json.load(json_file)
+
 rules = RU.Rules()
-rules.load_rules(therules)
+rules.load_rules(data)
 print(rules.list_of_rules)
 
-for i in my_check["workflows"]:
-    result = run_workflow(i)
-    print(result)
+for i in rules.list_of_rules:
+    check_this = process_rule(rules, file_to_check, str(i))
+    print(check_this.state)

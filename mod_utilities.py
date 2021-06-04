@@ -9,7 +9,7 @@
 import os
 import csv
 
-def get_textfromMD(path):
+def get_textfromfile(path):
     '''Return text from a MD filename path'''
     textout = ""
     fh = open(path, "r")

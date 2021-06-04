@@ -96,7 +96,7 @@ def run_rule_body(rule_json, file_to_check, runstate):
 # variables
 
 load_rules = r"C:\git\ms\Azure-Stack-Hub-Doc-Tools\tools-development\rules\conceptv2.json"
-rules_raw = MU.get_textfromMD(load_rules)
+rules_raw = MU.get_textfromfile(load_rules)
 my_check=json.loads(rules_raw)
 file_to_check = r"C:\git\ms\Azure-Stack-Hub-Doc-Tools\tools-development\testdata\azure-stack-overview.md"
 

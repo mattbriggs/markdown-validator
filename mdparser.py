@@ -4,7 +4,7 @@ Classes for the parser.
 - MDParser, the Parser logic for a markdown file.
 '''
 
-import devrelutilities as DV
+import mod_utilities as MU
 import markdown
 
 
@@ -29,7 +29,7 @@ class MDParser():
     def get_raw_body(self, inpath):
         '''With a path return text.'''
         try:
-            body = DV.get_text_from_file(inpath)
+            body = MU.get_textfromfile(inpath)
             self.raw = body
             return body
         except Exception as e:

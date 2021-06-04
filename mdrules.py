@@ -4,12 +4,6 @@ Classes for the rules.
 - Rules. This contains a list of the rules.
 '''
 
-import json
-import sys
-sys.path.insert(0, 'tools-development\common')
-import mod_utilities as MU
-
-
 class Rule():
     '''Contains the attributes of a rule.'''
 
@@ -50,13 +44,11 @@ class Rules():
         return 
 
     def load_rules(self, inputjson):
-        '''With a filepath, load the rules list.'''
-        rules_raw = MU.get_textfromMD(inputjson)
-        rules_json=json.loads(rules_raw)
-        for a in rules_json["rules"]["header"]:
+        '''With a json object, load the rules list.'''
+        for a in inputjson["rules"]["header"]:
             if a["id"] not in self.list_of_rules:
                 self.load_object("header", a)
-        for a in rules_json["rules"]["body"]:
+        for a in inputjson["rules"]["body"]:
             if a["id"] not in self.list_of_rules:
                 self.load_object("body", a)
 
