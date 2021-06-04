@@ -75,7 +75,7 @@ def process_rule(rules, file_to_check, id):
     handler = HA.MDHandler()
     md_page = handler.get_page(file_to_check)
     if rules.rules[id].type == "header":
-        check_rule = handler.eval_ask(md_page.metadata, rules.rules[id].query,
+        check_rule = handler.eval_ask(md_page.metadata, rules.rules[id].query, rules.rules[id].flag,
         rules.rules[id].operation,  rules.rules[id].value)
     else:
         check_rule = handler.eval_query(md_page.html, rules.rules[id].query, 
