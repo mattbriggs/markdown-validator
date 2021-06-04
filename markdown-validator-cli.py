@@ -11,7 +11,7 @@ import json
 import mod_utilities as MU
 import mdhandler as HA
 
-APPVERSION = "Markdown XPATH Builder CLI Version 1.0.0.20210412\n"
+APPVERSION = "Markdown Validator Command Line Interface Tool Version 1.0.0.20210604\n"
 PAGE_HOLD = ""
 
 HELPTEXT = MU.get_textfromfile(r'C:\git\mb\markdown-validator\markdown-validator-cli-help.txt')

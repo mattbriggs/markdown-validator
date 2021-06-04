@@ -2,9 +2,8 @@
 Unit tests using pytest for mdhandler.py (MDHandler class).
 '''
 import mdhandler as HA
-import mdparser as PA
 
-single_file = r"C:\git\ms\Azure-Stack-Hub-Doc-Tools\tools-development\testdata\azure-stack-overview.md"
+single_file = r"C:\git\mb\markdown-validator\testdata\azure-stack-overview.md"
 handler = HA.MDHandler()
 page = handler.get_page(single_file)
 
@@ -88,7 +87,7 @@ def test_eval_ask():
     '''Test to check.'''
     keyword = "ms.author"
     in_value = "patricka"
-    x = handler.eval_ask(page.metadata, keyword, "==", in_value)
+    x = handler.eval_ask(page.metadata, keyword, "value", "==", in_value)
     assert x == True
 
 
