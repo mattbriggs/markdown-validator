@@ -1,0 +1,296 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>mdworkflow module &mdash; Markdown Doc Validator 0.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Markdown Doc Validator
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">mdworkflow module</a></li>
+</ul>
+</div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Markdown Doc Validator</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>mdworkflow module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/mdworkflow.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-mdworkflow">
+<span id="mdworkflow-module"></span><h1>mdworkflow module<a class="headerlink" href="#module-mdworkflow" title="Permalink to this headline">¶</a></h1>
+<p>Classes for the runner.
+- Box. This is a container to hold state and value for each action.
+- Runner. This is the interacts wtih the workflow process to handle the filing</p>
+<blockquote>
+<div><p>retrieval of boxes.</p>
+</div></blockquote>
+<dl class="py class">
+<dt class="sig sig-object py" id="mdworkflow.Workflow">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">mdworkflow.</span></span><span class="sig-name descname"><span class="pre">Workflow</span></span><a class="headerlink" href="#mdworkflow.Workflow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class to process a workflow object.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mdworkflow.Workflow.action">
+<span class="sig-name descname"><span class="pre">action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">inbox=&lt;mdrunner.Box</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdworkflow.Workflow.action" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mdworkflow.Workflow.create_rules">
+<span class="sig-name descname"><span class="pre">create_rules</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_json</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdworkflow.Workflow.create_rules" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mdworkflow.Workflow.d">
+<span class="sig-name descname"><span class="pre">d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">inbox=&lt;mdrunner.Box</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdworkflow.Workflow.d" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mdworkflow.Workflow.e">
+<span class="sig-name descname"><span class="pre">e</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">inbox=&lt;mdrunner.Box</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdworkflow.Workflow.e" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mdworkflow.Workflow.f">
+<span class="sig-name descname"><span class="pre">f</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">inbox=&lt;mdrunner.Box</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdworkflow.Workflow.f" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mdworkflow.Workflow.m">
+<span class="sig-name descname"><span class="pre">m</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">inbox=&lt;mdrunner.Box</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdworkflow.Workflow.m" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mdworkflow.Workflow.make_proper">
+<span class="sig-name descname"><span class="pre">make_proper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdworkflow.Workflow.make_proper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take a string and return the right type of item.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mdworkflow.Workflow.parse_steps">
+<span class="sig-name descname"><span class="pre">parse_steps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">insteps</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdworkflow.Workflow.parse_steps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take a raw set of steps and return as list of tuples.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mdworkflow.Workflow.process_rule">
+<span class="sig-name descname"><span class="pre">process_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rules</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_to_check</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdworkflow.Workflow.process_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>With a rule object loaded with rules, a path to a markdown file, and 
+the rule id, run the rules and return a validaton object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mdworkflow.Workflow.run_rule_body">
+<span class="sig-name descname"><span class="pre">run_rule_body</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rule_json</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_to_check</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">runstate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdworkflow.Workflow.run_rule_body" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mdworkflow.Workflow.run_rule_header">
+<span class="sig-name descname"><span class="pre">run_rule_header</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rule_json</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_to_check</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">runstate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdworkflow.Workflow.run_rule_header" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mdworkflow.Workflow.run_workflow">
+<span class="sig-name descname"><span class="pre">run_workflow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">workflow</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdworkflow.Workflow.run_workflow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process a workflow. A workflow is a list of tuples. Returns a runner
+object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mdworkflow.Workflow.s">
+<span class="sig-name descname"><span class="pre">s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">inbox=&lt;mdrunner.Box</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdworkflow.Workflow.s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start function.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mdworkflow.Workflow.t">
+<span class="sig-name descname"><span class="pre">t</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">inbox=&lt;mdrunner.Box</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdworkflow.Workflow.t" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Matt Briggs.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
