@@ -19,55 +19,20 @@ class Workflow():
         "t" : self.t,
         "f" : self.f }
 
-    # actions
-    def action(self, checks, inbox=RUN.Box()):
-        '''Action node. Processes a rule.'''
-        outbox = RUN.Box()
-        outbox.state = True
-        outbox.value = "Action. Input: {}".format((inbox.state, inbox.value))
-        return outbox
+    def is_number(self, input):
+        try:
+            int(input)
+            return True
+        except:
+            return False
 
-    def s(self, checks, inbox=RUN.Box()):
-        '''Start node. Initiates the workflow.'''
-        outbox = RUN.Box()
-        outbox.state = True
-        outbox.value = "Start. Input: {}".format((inbox.state, inbox.value))
-        return outbox
 
-    def d(self, checks, inbox=RUN.Box()):
-        '''Decision node. Results in a true or false condition.'''
-        outbox = RUN.Box()
-        outbox.state = True
-        outbox.value = "Start. Input: {}".format((inbox.state, inbox.value))
-        return outbox
-
-    def m(self, checks, inbox=RUN.Box()):
-        '''Merge node. Collects branched control flows.'''
-        outbox = RUN.Box()
-        outbox.state = True
-        outbox.value = "Merge. Input: {}".format((inbox.state, inbox.value))
-        return outbox
-
-    def e(self, checks, inbox=RUN.Box()):
-        '''End node. Terminates the workflow.'''
-        outbox = RUN.Box()
-        outbox.state = False
-        outbox.value = "End. Input: {}".format((inbox.state, inbox.value))
-        return outbox
-
-    def t(self, checks, inbox=RUN.Box()):
-        '''Truth node. Connects to a true condition from the `d' node.'''
-        outbox = RUN.Box()
-        outbox.state = True
-        outbox.value = "True. Input: {}".format((inbox.state, inbox.value))
-        return outbox
-
-    def f(self, checks, inbox=RUN.Box()):
-        '''False node. Connects to a false condition from the `d' node.'''
-        outbox = RUN.Box()
-        outbox.state = False
-        outbox.value = "False. Input: {}".format((inbox.state, inbox.value))
-        return outbox
+    def check_truth(self, in_list):
+        for i in in_list:
+            if i == False:
+                return False
+            else:
+                return True
 
 
     def parse_steps(self, insteps):
@@ -100,74 +65,44 @@ class Workflow():
         A workflow is a list of tuples. Returns a runner
         object.'''
 
-        checks = rules.checks # dictionary
+        values = rules.checks # dictionary
         workflow = self.process_steps(in_steps)
 
         runner = RUN.Runner()
         runner.shelf_boxes(workflow)
 
-        COUNT = 0
+        for workflow in workflows:
+            workflow_states = []
+            decision = None
+            dec_flag = False
+            merge = False
+            counter = 0
 
-        #iterates over the list of tuples for the workflow
-        for i in workflow:
-            COUNT += 1
-            a = None
-            MESSAGE = ""
+            for step in workflow:
+                counter += 1
 
-            source = self.make_proper(i[0])
-            target = self.make_proper(i[1])
+                source = step[0] # source = self.make_proper(i[0])
+                target = step[1] # target = self.make_proper(i[1])
 
-            print("In-loop: {} | source {} target {} state {}".format(COUNT, source, target, runner.d.state))
-
-            if source == 't' and runner.d.state == True:
-                runner.boxes[target] = self.actions[str(target)](checks, runner.d)
-                runner.d = runner.boxes[target]
-                MESSAGE = runner.boxes[target].value
-                print("T-TERM: {} | {} {} {}".format(COUNT, source, target, runner.d.state))
-                continue
-
-            elif source == 'f' and runner.d.state == False:
-                runner.boxes[target] = self.actions[str(target)](checks, runner.d)
-                runner.d = runner.boxes[target]
-                MESSAGE = runner.boxes[target].value
-                print("f-TERM: {} | {} {} {}".format(COUNT, source, target, runner.d.state))
-                continue
-
-            else:
-                try:
-                    a = runner.boxes[int(source)]
-                    MESSAGE = a.value
-
-                except ValueError:
-                    if source == "s":
-                        MESSAGE = "Start"
-
-                    elif source == "m":
-                        runner.state = runner.reconcile()
-                        MESSAGE = "Merge"
-                try:
-                    if a:
-                        # run the target action
-                        runner.boxes[int(target)] = self.actions["action"](checks, 
-                        MESSAGE = runner.boxes[int(target)].value
+                if self.is_number(source) and target == "d":
+                    decision = values[source].state
+                    dec_flag = True
+                elif self.source == "t" and dec_flag == True:
+                    if decision == True:
+                        decision = values[target].state
+                        dec_flag = False
+                elif source == "f" and dec_flag == True:
+                    if decision == False:
+                        decision = values[target].state
+                        dec_flag = False
+                elif self.is_number(source) and target == "m":
+                    if merge == False:
+                        workflow_states.append(decision)
+                        decision = None
+                        merge = True
                     else:
-                        runner.boxes[target] = self.actions[str(target)](checks)
-                        MESSAGE = runner.boxes[int(target)].value
-
-                except ValueError:
-                    if target == 'd':
-                        runner.d = self.actions[str(source)](checks)
-                        MESSAGE = "Decision"
-
-                    elif target == 'm':
-                        runner.m.append(runner.boxes[source])
-                        MESSAGE = "Merge"
-
-                    elif target == 'e':
-                        MESSAGE = "End"
-            
-            print("LOOP-TERM: {} | {} {} {}\n".format(COUNT, source, target, runner.d.state))
-
-            runner.history += "Loop: {} | {} \n".format(COUNT, MESSAGE)
+                        merge = False
+                elif self.is_number(source) and target != "m":
+                    workflow_states.append(values[source].state)
         
         return runner
