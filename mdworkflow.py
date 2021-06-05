@@ -14,12 +14,62 @@ class Workflow():
 
     def __init__(self):
         self.actions = {
-            "s" : s,
-            "d" : d,
-            "m" : m,
-            "e" : e,
-            "t" : t,
-            "f" : f }
+        "s" : self.s,
+        "d" : self.d,
+        "m" : self.m,
+        "e" : self.e,
+        "t" : self.t,
+        "f" : self.f }
+
+    def action(self, inbox=RUN.Box()):
+        '''Action node. Processes a rule.'''
+        outbox = RUN.Box()
+        outbox.state = True
+        outbox.value = "Action 1. Input: {}".format((inbox.state, inbox.value))
+        return outbox
+
+    def s(self, inbox=RUN.Box()):
+        '''Start node. Initiates the workflow.'''
+        outbox = RUN.Box()
+        outbox.state = True
+        outbox.value = "Start. Input: {}".format((inbox.state, inbox.value))
+        return outbox
+
+    def d(self, inbox=RUN.Box()):
+        '''Decision node. Results in a true or false condition.'''
+        outbox = RUN.Box()
+        outbox.state = True
+        outbox.value = "Start. Input: {}".format((inbox.state, inbox.value))
+        return outbox
+
+    def m(self, inbox=RUN.Box()):
+        '''Merge node. Collects branched control flows.'''
+        outbox = RUN.Box()
+        outbox.state = True
+        outbox.value = "Merge. Input: {}".format((inbox.state, inbox.value))
+        return outbox
+
+    def e(self, inbox=RUN.Box()):
+        '''End node. Terminates the workflow.'''
+        outbox = RUN.Box()
+        outbox.state = False
+        outbox.value = "End. Input: {}".format((inbox.state, inbox.value))
+        return outbox
+
+    def t(self, inbox=RUN.Box()):
+        '''Truth node. Connects to a true condition from the `d' node.'''
+        outbox = RUN.Box()
+        outbox.state = True
+        outbox.value = "True. Input: {}".format((inbox.state, inbox.value))
+        return outbox
+
+    def f(self, inbox=RUN.Box()):
+        '''False node. Connects to a false condition from the `d' node.'''
+        outbox = RUN.Box()
+        outbox.state = False
+        outbox.value = "False. Input: {}".format((inbox.state, inbox.value))
+        return outbox
+
 
     def parse_steps(self, insteps):
         '''Take a raw set of steps and return as list of tuples.'''
@@ -28,7 +78,6 @@ class Workflow():
         for i in steps:
             tup = tuple(i.split("->"))
             workflow.append(tup)
-
         return workflow
 
 
@@ -52,9 +101,22 @@ class Workflow():
         return validation
 
 
-    def run_workflow(self, workflow):
+    def process_steps(self, in_steps):
+        '''Take the string from the workflow section and return a list of tuples.'''
+        workflow = []
+        parts = in_steps.split(",")
+        for i in parts:
+            p = i[1:4].split("-")
+            source_target = (p[0],p[1])
+            workflow.append(source_target)
+        return workflow
+
+
+    def run_workflow(self, rules, in_steps):
         '''Process a workflow. A workflow is a list of tuples. Returns a runner
         object.'''
+
+        workflow = self.process_steps(in_steps)
 
         runner = RUN.Runner()
         runner.shelf_boxes(workflow)
@@ -67,7 +129,7 @@ class Workflow():
             MESSAGE = ""
 
             source = self.make_proper(i[0])
-            target =  self.make_proper(i[1])
+            target = self.make_proper(i[1])
 
             print("In-loop: {} | {} {} {}".format(COUNT, source, target, runner.d.state))
 
@@ -84,9 +146,6 @@ class Workflow():
                 MESSAGE = runner.boxes[target].value
                 print("f-TERM: {} | {} {} {}".format(COUNT, source, target, runner.d.state))
                 continue
-
-            elif target == None:
-                pass
 
             else:
                 print("Action: {} {}".format(target, runner.d.value ))
@@ -176,47 +235,3 @@ class Workflow():
             out_value = in_string.lower()
 
         return out_value
-
-    def action(self, inbox=RUN.Box()):
-        ''' '''
-        outbox = RUN.Box()
-        outbox.state = True
-        outbox.value = "Action 1. Input: {}".format((inbox.state, inbox.value))
-        return outbox
-
-    def s(self, inbox=RUN.Box()):
-        '''Start function.'''
-        outbox = RUN.Box()
-        outbox.state = True
-        outbox.value = "Start. Input: {}".format((inbox.state, inbox.value))
-        return outbox
-
-    def d(self, inbox=RUN.Box()):
-        outbox = RUN.Box()
-        outbox.state = True
-        outbox.value = "Start. Input: {}".format((inbox.state, inbox.value))
-        return outbox
-
-    def m(self, inbox=RUN.Box()):
-        outbox = RUN.Box()
-        outbox.state = True
-        outbox.value = "Merge. Input: {}".format((inbox.state, inbox.value))
-        return outbox
-
-    def e(self, inbox=RUN.Box()):
-        outbox = RUN.Box()
-        outbox.state = False
-        outbox.value = "End. Input: {}".format((inbox.state, inbox.value))
-        return outbox
-
-    def t(self, inbox=RUN.Box()):
-        outbox = RUN.Box()
-        outbox.state = True
-        outbox.value = "True. Input: {}".format((inbox.state, inbox.value))
-        return outbox
-
-    def f(self, inbox=RUN.Box()):
-        outbox = RUN.Box()
-        outbox.state = False
-        outbox.value = "False. Input: {}".format((inbox.state, inbox.value))
-        return outbox
