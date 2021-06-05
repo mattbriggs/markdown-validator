@@ -21,49 +21,49 @@ class Workflow():
         "t" : self.t,
         "f" : self.f }
 
-    def action(self, inbox=RUN.Box()):
+    def action(self, rules, inbox=RUN.Box()):
         '''Action node. Processes a rule.'''
         outbox = RUN.Box()
         outbox.state = True
-        outbox.value = "Action 1. Input: {}".format((inbox.state, inbox.value))
+        outbox.value = "Action. Input: {}".format((inbox.state, inbox.value))
         return outbox
 
-    def s(self, inbox=RUN.Box()):
+    def s(self, rules, inbox=RUN.Box()):
         '''Start node. Initiates the workflow.'''
         outbox = RUN.Box()
         outbox.state = True
         outbox.value = "Start. Input: {}".format((inbox.state, inbox.value))
         return outbox
 
-    def d(self, inbox=RUN.Box()):
+    def d(self, rules, inbox=RUN.Box()):
         '''Decision node. Results in a true or false condition.'''
         outbox = RUN.Box()
         outbox.state = True
         outbox.value = "Start. Input: {}".format((inbox.state, inbox.value))
         return outbox
 
-    def m(self, inbox=RUN.Box()):
+    def m(self, rules, inbox=RUN.Box()):
         '''Merge node. Collects branched control flows.'''
         outbox = RUN.Box()
         outbox.state = True
         outbox.value = "Merge. Input: {}".format((inbox.state, inbox.value))
         return outbox
 
-    def e(self, inbox=RUN.Box()):
+    def e(self, rules, inbox=RUN.Box()):
         '''End node. Terminates the workflow.'''
         outbox = RUN.Box()
         outbox.state = False
         outbox.value = "End. Input: {}".format((inbox.state, inbox.value))
         return outbox
 
-    def t(self, inbox=RUN.Box()):
+    def t(self, rules, inbox=RUN.Box()):
         '''Truth node. Connects to a true condition from the `d' node.'''
         outbox = RUN.Box()
         outbox.state = True
         outbox.value = "True. Input: {}".format((inbox.state, inbox.value))
         return outbox
 
-    def f(self, inbox=RUN.Box()):
+    def f(self, rules, inbox=RUN.Box()):
         '''False node. Connects to a false condition from the `d' node.'''
         outbox = RUN.Box()
         outbox.state = False
@@ -73,47 +73,21 @@ class Workflow():
 
     def parse_steps(self, insteps):
         '''Take a raw set of steps and return as list of tuples.'''
-        steps = insteps.split(",")
-        workflow = []
-        for i in steps:
-            tup = tuple(i.split("->"))
-            workflow.append(tup)
-        return workflow
-
-
-    def process_rule(self, rules, file_to_check, id):
-        '''With a rule object loaded with rules, a path to a markdown file, and 
-        the rule id, run the rules and return a validaton object.'''
-        handler = HA.MDHandler()
-        md_page = handler.get_page(file_to_check)
-        if rules.rules[id].type == "header":
-            check_rule = handler.eval_ask(md_page.metadata, rules.rules[id].query, rules.rules[id].flag,
-            rules.rules[id].operation,  rules.rules[id].value)
+        if insteps.count("-") % 2 == 0:
+            steps = insteps.split(",")
+            workflow = []
+            for i in steps:
+                tup = tuple(i.split("-"))
+                workflow.append(tup)
+            return workflow
         else:
-            check_rule = handler.eval_query(md_page.html, rules.rules[id].query, 
-            rules.rules[id].flag, rules.rules[id].operation, rules.rules[id].value)
-        validation = RU.Validation()
-        validation.id = id
-        validation.state = check_rule
-        validation.value = rules.rules[id].value
-        validation.mitigation = rules.rules[id].mitigation
-        validation.path = file_to_check
-        return validation
-
-
-    def process_steps(self, in_steps):
-        '''Take the string from the workflow section and return a list of tuples.'''
-        workflow = []
-        parts = in_steps.split(",")
-        for i in parts:
-            p = i[1:4].split("-")
-            source_target = (p[0],p[1])
-            workflow.append(source_target)
-        return workflow
+            print("Malformed workflow: {}".format(insteps))
+            exit()
 
 
     def run_workflow(self, rules, in_steps):
-        '''Process a workflow. A workflow is a list of tuples. Returns a runner
+        '''Process a rules and workflow steps. rules are a Rule object. 
+        A workflow is a list of tuples. Returns a runner
         object.'''
 
         workflow = self.process_steps(in_steps)
@@ -123,6 +97,7 @@ class Workflow():
 
         COUNT = 0
 
+        #iterates over the list of tuples for the workflow
         for i in workflow:
             COUNT += 1
             a = None
@@ -131,24 +106,23 @@ class Workflow():
             source = self.make_proper(i[0])
             target = self.make_proper(i[1])
 
-            print("In-loop: {} | {} {} {}".format(COUNT, source, target, runner.d.state))
+            print("In-loop: {} | source {} target {} state {}".format(COUNT, source, target, runner.d.state))
 
             if source == 't' and runner.d.state == True:
-                runner.boxes[target] = self.actions[str(target)](runner.d)
+                runner.boxes[target] = self.actions[str(target)](rules, runner.d)
                 runner.d = runner.boxes[target]
                 MESSAGE = runner.boxes[target].value
                 print("T-TERM: {} | {} {} {}".format(COUNT, source, target, runner.d.state))
                 continue
 
             elif source == 'f' and runner.d.state == False:
-                runner.boxes[target] = self.actions[str(target)](runner.d)
+                runner.boxes[target] = self.actions[str(target)](rules, runner.d)
                 runner.d = runner.boxes[target]
                 MESSAGE = runner.boxes[target].value
                 print("f-TERM: {} | {} {} {}".format(COUNT, source, target, runner.d.state))
                 continue
 
             else:
-                print("Action: {} {}".format(target, runner.d.value ))
                 try:
                     a = runner.boxes[int(source)]
                     MESSAGE = a.value
@@ -162,15 +136,16 @@ class Workflow():
                         MESSAGE = "Merge"
                 try:
                     if a:
-                        runner.boxes[int(target)] = self.actions[str(target)](a)
+                        # run the target action
+                        runner.boxes[int(target)] = self.actions[str(target)](rules, a)
                         MESSAGE = runner.boxes[int(target)].value
                     else:
-                        runner.boxes[target] = self.actions[str(target)]()
+                        runner.boxes[target] = self.actions[str(target)](rules)
                         MESSAGE = runner.boxes[int(target)].value
 
                 except ValueError:
                     if target == 'd':
-                        runner.d = self.actions[str(source)]()
+                        runner.d = self.actions[str(source)](rules)
                         MESSAGE = "Decision"
 
                     elif target == 'm':

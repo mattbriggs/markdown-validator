@@ -86,27 +86,27 @@
     "workflows": [{
             "name": "The-mstopic-attribute-has-a-value-of-tutorial            ",
             "type": "header",
-            "steps": "(S-1),(1-E)"
+            "steps": "S-1,1-E"
         },
         {
             "name": "The-title-attribute-value-includes-word-tutorial",
             "type": "header",
-            "steps": "(S-2),(2-E)"
+            "steps": "S-2,2-E"
         },
         {
             "name": "The-description-attribute-value-includes-the-word-tutorial",
             "type": "header",
-            "steps": "(S-3),(3-E)"
+            "steps": "S-3,3-E"
         },
         {
             "name": "The-msdate-attribute-reflects-the-current-week",
             "type": "header",
-            "steps": "(S-4),(4-E)"
+            "steps": "S-4,4-E"
         },
         {
             "name": "The-customer-intent-statement-is-a-markdown-comment-in-the-last-line-in-the-metadata-section",
             "type": "header",
-            "steps": "(S-5),(5-E)"
+            "steps": "S-5,5-E"
         }
     ]
 }
