@@ -5,9 +5,7 @@ Classes for the runner.
     retrieval of boxes.
 '''
 
-import mdhandler as HA
 import mdrunner as RUN
-import mdrules as RU
 
 class Workflow():
     '''Class to process a workflow object.'''
@@ -21,49 +19,50 @@ class Workflow():
         "t" : self.t,
         "f" : self.f }
 
-    def action(self, rules, inbox=RUN.Box()):
+    # actions
+    def action(self, checks, inbox=RUN.Box()):
         '''Action node. Processes a rule.'''
         outbox = RUN.Box()
         outbox.state = True
         outbox.value = "Action. Input: {}".format((inbox.state, inbox.value))
         return outbox
 
-    def s(self, rules, inbox=RUN.Box()):
+    def s(self, checks, inbox=RUN.Box()):
         '''Start node. Initiates the workflow.'''
         outbox = RUN.Box()
         outbox.state = True
         outbox.value = "Start. Input: {}".format((inbox.state, inbox.value))
         return outbox
 
-    def d(self, rules, inbox=RUN.Box()):
+    def d(self, checks, inbox=RUN.Box()):
         '''Decision node. Results in a true or false condition.'''
         outbox = RUN.Box()
         outbox.state = True
         outbox.value = "Start. Input: {}".format((inbox.state, inbox.value))
         return outbox
 
-    def m(self, rules, inbox=RUN.Box()):
+    def m(self, checks, inbox=RUN.Box()):
         '''Merge node. Collects branched control flows.'''
         outbox = RUN.Box()
         outbox.state = True
         outbox.value = "Merge. Input: {}".format((inbox.state, inbox.value))
         return outbox
 
-    def e(self, rules, inbox=RUN.Box()):
+    def e(self, checks, inbox=RUN.Box()):
         '''End node. Terminates the workflow.'''
         outbox = RUN.Box()
         outbox.state = False
         outbox.value = "End. Input: {}".format((inbox.state, inbox.value))
         return outbox
 
-    def t(self, rules, inbox=RUN.Box()):
+    def t(self, checks, inbox=RUN.Box()):
         '''Truth node. Connects to a true condition from the `d' node.'''
         outbox = RUN.Box()
         outbox.state = True
         outbox.value = "True. Input: {}".format((inbox.state, inbox.value))
         return outbox
 
-    def f(self, rules, inbox=RUN.Box()):
+    def f(self, checks, inbox=RUN.Box()):
         '''False node. Connects to a false condition from the `d' node.'''
         outbox = RUN.Box()
         outbox.state = False
@@ -101,6 +100,7 @@ class Workflow():
         A workflow is a list of tuples. Returns a runner
         object.'''
 
+        checks = rules.checks # dictionary
         workflow = self.process_steps(in_steps)
 
         runner = RUN.Runner()
@@ -120,14 +120,14 @@ class Workflow():
             print("In-loop: {} | source {} target {} state {}".format(COUNT, source, target, runner.d.state))
 
             if source == 't' and runner.d.state == True:
-                runner.boxes[target] = self.actions[str(target)](rules, runner.d)
+                runner.boxes[target] = self.actions[str(target)](checks, runner.d)
                 runner.d = runner.boxes[target]
                 MESSAGE = runner.boxes[target].value
                 print("T-TERM: {} | {} {} {}".format(COUNT, source, target, runner.d.state))
                 continue
 
             elif source == 'f' and runner.d.state == False:
-                runner.boxes[target] = self.actions[str(target)](rules, runner.d)
+                runner.boxes[target] = self.actions[str(target)](checks, runner.d)
                 runner.d = runner.boxes[target]
                 MESSAGE = runner.boxes[target].value
                 print("f-TERM: {} | {} {} {}".format(COUNT, source, target, runner.d.state))
@@ -148,15 +148,15 @@ class Workflow():
                 try:
                     if a:
                         # run the target action
-                        runner.boxes[int(target)] = self.actions[str(target)](rules, a)
+                        runner.boxes[int(target)] = self.actions["action"](checks, 
                         MESSAGE = runner.boxes[int(target)].value
                     else:
-                        runner.boxes[target] = self.actions[str(target)](rules)
+                        runner.boxes[target] = self.actions[str(target)](checks)
                         MESSAGE = runner.boxes[int(target)].value
 
                 except ValueError:
                     if target == 'd':
-                        runner.d = self.actions[str(source)](rules)
+                        runner.d = self.actions[str(source)](checks)
                         MESSAGE = "Decision"
 
                     elif target == 'm':
