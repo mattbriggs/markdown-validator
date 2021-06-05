@@ -85,6 +85,17 @@ class Workflow():
             exit()
 
 
+    def make_proper(self, in_string):
+        '''Take a string and return the right type of item.'''
+        try:
+            out_value = int(in_string)
+
+        except ValueError:
+            out_value = in_string.lower()
+
+        return out_value
+
+
     def run_workflow(self, rules, in_steps):
         '''Process a rules and workflow steps. rules are a Rule object. 
         A workflow is a list of tuples. Returns a runner
@@ -160,53 +171,3 @@ class Workflow():
             runner.history += "Loop: {} | {} \n".format(COUNT, MESSAGE)
         
         return runner
-
-
-    def create_rules(self, in_json):
-        rules = {}
-        for i in in_json["rules"]["header"]:
-            rules[i["id"]] = i
-        for i in in_json["rules"]["body"]:
-            rules[i["id"]] = i
-        return rules
-
-
-    def run_rule_header(self, rule_json, file_to_check, runstate):
-        handler = HA.MDHandler()
-        md_page = handler.get_page(file_to_check)
-        check_rule = handler.eval_ask(md_page .html, rule_json['query'], rule_json['operation'], rule_json['value'])
-        if check_rule:
-            print("Rule: {} Passed: {}".format(rule_json["id"], check_rule))
-            runstate["state"] = "running"
-            runstate["pass"] = check_rule
-        else:
-            print("Rule: {} Passed: {}\n-->Fix: {}".format(rule_json["id"], check_rule, rule_json["mitigation"]))
-            runstate["state"] = "running"
-            runstate["pass"] = check_rule
-            return runstate
-
-
-    def run_rule_body(self, rule_json, file_to_check, runstate):
-        handler = HA.MDHandler()
-        md_page = handler.get_page(file_to_check)
-        check_rule = handler.eval_query(md_page .html, rule_json['query'],  rule_json['flag'], rule_json['operation'], rule_json['value'])
-        if check_rule:
-            print("Rule: {} Passed: {}".format(rule_json["id"], check_rule))
-            runstate["state"] = "running"
-            runstate["pass"] = check_rule
-            return runstate
-        else:
-            print("Rule: {} Passed: {}\n-->Fix: {}".format(rule_json["id"], check_rule, rule_json["mitigation"]))
-            runstate["state"] = "running"
-            runstate["pass"] = check_rule
-            return runstate
-
-    def make_proper(self, in_string):
-        '''Take a string and return the right type of item.'''
-        try:
-            out_value = int(in_string)
-
-        except ValueError:
-            out_value = in_string.lower()
-
-        return out_value

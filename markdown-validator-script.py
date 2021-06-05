@@ -18,7 +18,7 @@ def check_the_file(rule_json_file, markdown_file):
     with open(rule_json_file, 'r') as json_file:
         data = json.load(json_file)
     rules = RU.Rules()
-    rules.validate_file(data, markdown_file)
+    rules.validate_rules(data, markdown_file)
     return rules
 
     # for i in data["workflows"]:

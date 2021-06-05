@@ -101,7 +101,7 @@ class Rules():
         return validation
 
 
-    def validate_file(self, json_rules, file_to_check):
+    def validate_rules(self, json_rules, file_to_check):
         '''With rules and a file to check run all of the rules.'''
         self.load_rules(json_rules)
         self.load_page(file_to_check)

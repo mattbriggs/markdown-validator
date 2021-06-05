@@ -137,3 +137,6 @@ secrets.json
 
 /docs
 /workingstuff
+
+/.vscode
+/.VSCodeCounter
