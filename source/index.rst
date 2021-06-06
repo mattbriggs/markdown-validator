@@ -29,6 +29,8 @@ The validation query contains two modalities.
 
 You can find the code at https://github.com/mattbriggs/markdown-validator.
 
+updated: 6/6/2021
+
 Indices and tables
 ==================
 
