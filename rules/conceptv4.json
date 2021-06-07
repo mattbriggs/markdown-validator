@@ -39,17 +39,8 @@
                 "value": "7",
                 "level": "Required",
                 "mitigation": "You must have an author in your document."
-            },
-            {
-                "name": "The-customer-intent-statement-is-a-markdown-comment-in-the-last-line-in-the-metadata-section",
-                "id": "5",
-                "query": "intent",
-                "flag": "check",
-                "operation": "",
-                "value": "",
-                "level": "Required",
-                "mitigation": "You must have an author in your document."
             }
+
         ],
         "body": [{
                 "name": "must-have-h1",
@@ -80,6 +71,16 @@
                 "value": "Next steps",
                 "level": "Required",
                 "mitigation": "The last H2 must be say 'Next Steps'"
+            },
+            {
+                "name": "test-rule",
+                "id": "9",
+                "query": "/html/body/p",
+                "flag": "text",
+                "operation": "[]",
+                "value": "manage policies",
+                "level": "Required",
+                "mitigation": "`manage policies` must be in every intro paragraph."
             }
         ]
     },
@@ -104,9 +105,14 @@
             "steps": "S-4,4-E"
         },
         {
-            "name": "The-customer-intent-statement-is-a-markdown-comment-in-the-last-line-in-the-metadata-section",
+            "name": "must-have-next-steps",
             "type": "header",
-            "steps": "S-5,5-E"
+            "steps": "S-8,8-E"
+        },
+        {
+            "name": "must-manage-policies-in-intro",
+            "type": "body",
+            "steps": "S-9,9-E"
         }
     ]
 }

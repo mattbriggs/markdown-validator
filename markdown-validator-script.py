@@ -37,24 +37,24 @@ def validate_with_workflows(rules, rule_json_file):
 # run validation
 
 rule_json_file = r"C:\git\mb\markdown-validator\rules\conceptv4.json"
-markdown_file = r"C:\git\ms\azure-stack-docs-pr\azure-stack\aks-hci\deploy-linux-application.md"
+markdown_file = r"C:\git\ms\azure-docs-pr\articles\governance\policy\tutorials\create-and-manage.md"
 
 # check rules and load the results
 
 check = validate_with_rules(rule_json_file, markdown_file)
 
-print('''
-=============
-check rules
-=============
-''')
-for i in check.list_of_rules:
-    print(check.checks[i].id)
-    print(check.checks[i].name)
-    print(check.checks[i].state)
-    print(check.checks[i].value)
-    print(check.checks[i].mitigation)
-    print("=============\n")
+# print('''
+# =============
+# check rules
+# =============
+# ''')
+# for i in check.list_of_rules:
+#     print(check.checks[i].id)
+#     print(check.checks[i].name)
+#     print(check.checks[i].state)
+#     print(check.checks[i].value)
+#     print(check.checks[i].mitigation)
+#     print("=============\n")
 
 # run workflow
 
