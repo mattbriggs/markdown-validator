@@ -10,13 +10,11 @@ import csv
 def get_textfromfile(path):
     """Return text from a MD filename path.
 
-        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
-        :type [ParamName]: [ParamType](, optional)
+        :param path: Path to a file. (c:\textfile.txt)
+        :type string: File path
         ...
-        :raises [ErrorType]: [ErrorDescription]
-        ...
-        :return: [ReturnDescription]
-        :rtype: [ReturnType]
+        :return: The text from the file.
+        :rtype: string
         """
     textout = ""
     fh = open(path, "r")
@@ -29,13 +27,11 @@ def get_textfromfile(path):
 def write_text(outbody, path):
     """Write text file to the path.
 
-        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
-        :type [ParamName]: [ParamType](, optional)
-        ...
-        :raises [ErrorType]: [ErrorDescription]
-        ...
-        :return: [ReturnDescription]
-        :rtype: [ReturnType]
+        :param outbody: The contents of the file to saved as a string.
+        :type string: File contents.
+
+        :param path: Path to a file. (c:\textfile.txt)
+        :type string: File path.
         """
     out_file = open(path, "w")
     for line in outbody:
@@ -46,13 +42,13 @@ def write_text(outbody, path):
 def write_csv(outbody, path):
     """Write CSV file to the path.
 
-        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
-        :type [ParamName]: [ParamType](, optional)
+        :param outbody: A list of lists containing the header and rows.
+        :type List: A list of lists.
+
+        :param path: Full path name including the file. (c:\output.csv)
+        :type string: File path
         ...
-        :raises [ErrorType]: [ErrorDescription]
-        ...
-        :return: [ReturnDescription]
-        :rtype: [ReturnType]
+        :raises Error: Prints the error code.
         """
     csvout = open(path, 'w', newline="")
     csvwrite = csv.writer(csvout)
@@ -64,16 +60,17 @@ def write_csv(outbody, path):
     csvout.close()
 
 
-def get_files(inpath, extension):
+def get_files(inpath, extension=".md"):
     """With the directory path, returns a list of markdown file paths.
 
-        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
-        :type [ParamName]: [ParamType](, optional)
+        :param inpath: Path to the folder containing the files.
+        :type string: The path to a folder. (required)
+
+        :param extension: File extension to filter retrieved files.
+        :type string: The file extension. For example, ".md" (default) (optional)
         ...
-        :raises [ErrorType]: [ErrorDescription]
-        ...
-        :return: [ReturnDescription]
-        :rtype: [ReturnType]
+        :return: Returns a list of filtered files.
+        :rtype: List
         """
     outlist = []
     for (path, dirs, files) in os.walk(inpath):
