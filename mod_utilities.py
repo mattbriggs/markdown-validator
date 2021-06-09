@@ -1,16 +1,23 @@
 ''' Modular Doc Utilites
 
-    This script contains common functions used by the python script modules
-    in this repository.
-
-    Matt Briggs V1.0: 7.29.2020
+    Module contains common functions used by the Python script modules
+    working with text files.
 '''
 
 import os
 import csv
 
 def get_textfromfile(path):
-    '''Return text from a MD filename path'''
+    """Return text from a MD filename path.
+
+        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+        :type [ParamName]: [ParamType](, optional)
+        ...
+        :raises [ErrorType]: [ErrorDescription]
+        ...
+        :return: [ReturnDescription]
+        :rtype: [ReturnType]
+        """
     textout = ""
     fh = open(path, "r")
     for line in fh:
@@ -20,7 +27,16 @@ def get_textfromfile(path):
 
 
 def write_text(outbody, path):
-    '''Write text file to the path.'''
+    """Write text file to the path.
+
+        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+        :type [ParamName]: [ParamType](, optional)
+        ...
+        :raises [ErrorType]: [ErrorDescription]
+        ...
+        :return: [ReturnDescription]
+        :rtype: [ReturnType]
+        """
     out_file = open(path, "w")
     for line in outbody:
         out_file.write(line)
@@ -28,7 +44,16 @@ def write_text(outbody, path):
 
 
 def write_csv(outbody, path):
-    '''Write CSV file to the path.'''
+    """Write CSV file to the path.
+
+        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+        :type [ParamName]: [ParamType](, optional)
+        ...
+        :raises [ErrorType]: [ErrorDescription]
+        ...
+        :return: [ReturnDescription]
+        :rtype: [ReturnType]
+        """
     csvout = open(path, 'w', newline="")
     csvwrite = csv.writer(csvout)
     for r in outbody:
@@ -40,7 +65,16 @@ def write_csv(outbody, path):
 
 
 def get_files(inpath, extension):
-    '''With the directory path, returns a list of markdown file paths.'''
+    """With the directory path, returns a list of markdown file paths.
+
+        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+        :type [ParamName]: [ParamType](, optional)
+        ...
+        :raises [ErrorType]: [ErrorDescription]
+        ...
+        :return: [ReturnDescription]
+        :rtype: [ReturnType]
+        """
     outlist = []
     for (path, dirs, files) in os.walk(inpath):
         for filename in files:

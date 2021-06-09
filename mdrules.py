@@ -1,14 +1,26 @@
 '''
-Classes for the rules.
-- Rule. This is a container to hold the attributes of a rule.
-- Rules. This contains a list of the rules.
+Module contains the classes for the rules.
+
+- Rule class. This is a container to hold the attributes of a rule.
+
+- Rules class. This contains a list of the rules.
+
 '''
 
 import mdhandler as HA
 import mdparser as PA
 
 class Rule():
-    '''Contains the attributes of a rule.'''
+    """Contains the attributes of a rule.
+
+        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+        :type [ParamName]: [ParamType](, optional)
+        ...
+        :raises [ErrorType]: [ErrorDescription]
+        ...
+        :return: [ReturnDescription]
+        :rtype: [ReturnType]
+        """
 
     def __init__(self):
         self.type = ""
@@ -22,7 +34,16 @@ class Rule():
         self.mitigation = ""
 
 class Validation():
-    '''A container class for validation responses.'''
+    """A container class for validation responses.
+
+        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+        :type [ParamName]: [ParamType](, optional)
+        ...
+        :raises [ErrorType]: [ErrorDescription]
+        ...
+        :return: [ReturnDescription]
+        :rtype: [ReturnType]
+        """
 
     def __init__(self):
         self.id = 0
@@ -33,7 +54,16 @@ class Validation():
         self.path = ""
 
 class Rules():
-    '''Contains a list of rules.'''
+    """Contains a list of rules.
+
+        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+        :type [ParamName]: [ParamType](, optional)
+        ...
+        :raises [ErrorType]: [ErrorDescription]
+        ...
+        :return: [ReturnDescription]
+        :rtype: [ReturnType]
+        """
 
     def __init__(self):
         self.list_of_rules = []
@@ -45,8 +75,17 @@ class Rules():
 
 
     def load_object(self, type, indict):
-        '''With a dictionary of key values, load a Rule object, and add to the
-        list_of_rules.'''
+        """With a dictionary of key values, load a Rule object, and add to the
+        list_of_rules.
+
+        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+        :type [ParamName]: [ParamType](, optional)
+        ...
+        :raises [ErrorType]: [ErrorDescription]
+        ...
+        :return: [ReturnDescription]
+        :rtype: [ReturnType]
+        """
         rule = Rule()
         rule.type = type
         rule.name = indict["name"]
@@ -63,7 +102,16 @@ class Rules():
 
 
     def load_rules(self, inputjson):
-        '''With a json object, load the rules list.'''
+        """With a json object, load the rules list.
+
+        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+        :type [ParamName]: [ParamType](, optional)
+        ...
+        :raises [ErrorType]: [ErrorDescription]
+        ...
+        :return: [ReturnDescription]
+        :rtype: [ReturnType]
+        """
         for a in inputjson["rules"]["header"]:
             if a["id"] not in self.list_of_rules:
                 self.load_object("header", a)
@@ -73,7 +121,16 @@ class Rules():
 
 
     def load_page(self, file_to_check):
-        '''With a filepath to a markdown page, load the page.'''
+        """With a filepath to a markdown page, load the page.
+
+        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+        :type [ParamName]: [ParamType](, optional)
+        ...
+        :raises [ErrorType]: [ErrorDescription]
+        ...
+        :return: [ReturnDescription]
+        :rtype: [ReturnType]
+        """
         try:
             self.path = file_to_check
             self.page = self.handler.get_page(file_to_check)
@@ -82,8 +139,17 @@ class Rules():
 
 
     def process_rule(self, id):
-        '''With a rule object loaded with rules, a path to a markdown file, and 
-        the rule id, run the rules and return a validaton object.'''
+        """With a rule object loaded with rules, a path to a markdown file, and 
+        the rule id, run the rules and return a validaton object.
+
+        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+        :type [ParamName]: [ParamType](, optional)
+        ...
+        :raises [ErrorType]: [ErrorDescription]
+        ...
+        :return: [ReturnDescription]
+        :rtype: [ReturnType]
+        """
 
         if self.rules[id].type == "header":
             check_rule = self.handler.eval_ask(self.page.metadata, self.rules[id].query, self.rules[id].flag,
@@ -102,7 +168,16 @@ class Rules():
 
 
     def validate_rules(self, json_rules, file_to_check):
-        '''With rules and a file to check run all of the rules.'''
+        """With rules and a file to check run all of the rules.
+
+        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+        :type [ParamName]: [ParamType](, optional)
+        ...
+        :raises [ErrorType]: [ErrorDescription]
+        ...
+        :return: [ReturnDescription]
+        :rtype: [ReturnType]
+        """
         self.load_rules(json_rules)
         self.load_page(file_to_check)
         for i in self.list_of_rules:

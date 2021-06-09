@@ -8,6 +8,16 @@ import nltk
 class MDPartofspeecher():
     '''Parser that parses sentences and can return number of sentences and part
     of speech.'''
+    """[Summary]
+
+        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+        :type [ParamName]: [ParamType](, optional)
+        ...
+        :raises [ErrorType]: [ErrorDescription]
+        ...
+        :return: [ReturnDescription]
+        :rtype: [ReturnType]
+        """
 
     def __init__(self):
         self.PENN_TOKENS = {
@@ -53,17 +63,47 @@ class MDPartofspeecher():
 
     def parse_sentences(self, incorpus):
         '''Take a body text and return sentences in a list.'''
+        """[Summary]
+
+        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+        :type [ParamName]: [ParamType](, optional)
+        ...
+        :raises [ErrorType]: [ErrorDescription]
+        ...
+        :return: [ReturnDescription]
+        :rtype: [ReturnType]
+        """
         sentences = nltk.sent_tokenize(incorpus)
         return sentences
 
 
     def number_sentences(self, incorpus):
+        """[Summary]
+
+        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+        :type [ParamName]: [ParamType](, optional)
+        ...
+        :raises [ErrorType]: [ErrorDescription]
+        ...
+        :return: [ReturnDescription]
+        :rtype: [ReturnType]
+        """
         lisofsentences = self.parse_sentences(incorpus)
         return len(lisofsentences)
 
 
     def parse_words(self, insentence):
         '''Take a sentence and return tokens in the sentence.'''
+        """[Summary]
+
+        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+        :type [ParamName]: [ParamType](, optional)
+        ...
+        :raises [ErrorType]: [ErrorDescription]
+        ...
+        :return: [ReturnDescription]
+        :rtype: [ReturnType]
+        """
         tokens = nltk.word_tokenize(insentence)
         tagged = nltk.pos_tag(tokens)
         return tagged
@@ -73,6 +113,16 @@ class MDPartofspeecher():
         '''Take a text body and return a parsed model that contains a
         list of lists. Each sublist is a set of tuples that identify 
         the word and part-of-speech.'''
+        """[Summary]
+
+        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+        :type [ParamName]: [ParamType](, optional)
+        ...
+        :raises [ErrorType]: [ErrorDescription]
+        ...
+        :return: [ReturnDescription]
+        :rtype: [ReturnType]
+        """
         my_body = self.parse_sentences(incorpus)
         model = []
         for sentence in my_body:
@@ -83,6 +133,16 @@ class MDPartofspeecher():
 
 
     def get_word_pos(self, insentence, index):
+        """[Summary]
+
+        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+        :type [ParamName]: [ParamType](, optional)
+        ...
+        :raises [ErrorType]: [ErrorDescription]
+        ...
+        :return: [ReturnDescription]
+        :rtype: [ReturnType]
+        """
         pointer = int(index)-1
         model = self.make_model(insentence)
         return model[pointer][1]

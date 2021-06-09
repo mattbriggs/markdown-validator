@@ -8,12 +8,31 @@ Classes for the runner.
 import mdrunner as RUN
 
 class Workflow():
-    '''Class to process a workflow object.'''
+    """Class to process a workflow object.
+
+        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+        :type [ParamName]: [ParamType](, optional)
+        ...
+        :raises [ErrorType]: [ErrorDescription]
+        ...
+        :return: [ReturnDescription]
+        :rtype: [ReturnType]
+        """
 
     def __init__(self):
         self.state = "Created"
 
     def is_number(self, input):
+        """[Summary]
+
+        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+        :type [ParamName]: [ParamType](, optional)
+        ...
+        :raises [ErrorType]: [ErrorDescription]
+        ...
+        :return: [ReturnDescription]
+        :rtype: [ReturnType]
+        """
         try:
             int(input)
             return True
@@ -22,6 +41,16 @@ class Workflow():
 
 
     def check_truth(self, in_list):
+        """[Summary]
+
+        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+        :type [ParamName]: [ParamType](, optional)
+        ...
+        :raises [ErrorType]: [ErrorDescription]
+        ...
+        :return: [ReturnDescription]
+        :rtype: [ReturnType]
+        """
         for i in in_list:
             if i == False:
                 return False
@@ -30,7 +59,16 @@ class Workflow():
 
 
     def parse_steps(self, insteps):
-        '''Take a raw set of steps and return as list of tuples.'''
+        """Take a raw set of steps and return as list of tuples.
+
+        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+        :type [ParamName]: [ParamType](, optional)
+        ...
+        :raises [ErrorType]: [ErrorDescription]
+        ...
+        :return: [ReturnDescription]
+        :rtype: [ReturnType]
+        """
         if insteps.count("-") % 2 == 0:
             steps = insteps.split(",")
             workflow = []
@@ -45,7 +83,16 @@ class Workflow():
 
 
     def make_proper(self, in_string):
-        '''Take a string and return the right type of item.'''
+        """Take a string and return the right type of item.
+
+        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+        :type [ParamName]: [ParamType](, optional)
+        ...
+        :raises [ErrorType]: [ErrorDescription]
+        ...
+        :return: [ReturnDescription]
+        :rtype: [ReturnType]
+        """
         try:
             out_value = int(in_string)
 
@@ -56,9 +103,18 @@ class Workflow():
 
 
     def run_workflow(self, rules, in_steps):
-        '''Process a rules and workflow steps. rules are a Rule object. 
+        """Process a rules and workflow steps. rules are a Rule object. 
         A workflow is a list of tuples. Returns a runner
-        object.'''
+        object.
+
+        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+        :type [ParamName]: [ParamType](, optional)
+        ...
+        :raises [ErrorType]: [ErrorDescription]
+        ...
+        :return: [ReturnDescription]
+        :rtype: [ReturnType]
+        """
 
         workflow = self.parse_steps(in_steps)
 

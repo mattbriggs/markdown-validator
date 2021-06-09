@@ -9,7 +9,16 @@ import markdown
 
 
 class MDPage():
-    '''Class that holds page data.'''
+    """Class that holds page data.
+
+        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+        :type [ParamName]: [ParamType](, optional)
+        ...
+        :raises [ErrorType]: [ErrorDescription]
+        ...
+        :return: [ReturnDescription]
+        :rtype: [ReturnType]
+        """
 
     def __init__(self):
         self.filepath = ""
@@ -19,7 +28,16 @@ class MDPage():
 
 
 class MDParser():
-    '''Class that parses a markdown file and return a json payload.'''
+    """Class that parses a markdown file and return a json payload.
+
+        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+        :type [ParamName]: [ParamType](, optional)
+        ...
+        :raises [ErrorType]: [ErrorDescription]
+        ...
+        :return: [ReturnDescription]
+        :rtype: [ReturnType]
+        """
 
 
     def __init__(self):
@@ -27,7 +45,16 @@ class MDParser():
         self.raw = ""
 
     def get_raw_body(self, inpath):
-        '''With a path return text.'''
+        """With a path return text.
+
+        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+        :type [ParamName]: [ParamType](, optional)
+        ...
+        :raises [ErrorType]: [ErrorDescription]
+        ...
+        :return: [ReturnDescription]
+        :rtype: [ReturnType]
+        """
         try:
             body = MU.get_textfromfile(inpath)
             self.raw = body
@@ -36,7 +63,16 @@ class MDParser():
             return "A path wasn't passed to the Parser. Error: {e}"
 
     def butcher(self):
-        '''Split a file into three parts.'''
+        """Split a file into three parts.
+
+        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+        :type [ParamName]: [ParamType](, optional)
+        ...
+        :raises [ErrorType]: [ErrorDescription]
+        ...
+        :return: [ReturnDescription]
+        :rtype: [ReturnType]
+        """
         parts = self.raw.split("---")
         sized = len(parts)
         part_one = parts[1]
@@ -49,7 +85,16 @@ class MDParser():
 
 
     def clear_it(self, fixit):
-        '''Clears the metadata of garbage.'''
+        """Clears the metadata of garbage.
+
+        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+        :type [ParamName]: [ParamType](, optional)
+        ...
+        :raises [ErrorType]: [ErrorDescription]
+        ...
+        :return: [ReturnDescription]
+        :rtype: [ReturnType]
+        """
         a = fixit.strip()
         b = a.replace("\n", "")
         c = b.replace("# ", "")
@@ -57,7 +102,16 @@ class MDParser():
 
 
     def process_meta(self):
-        '''Creates key value pairs out of the lines of the metadata file.'''
+        """Creates key value pairs out of the lines of the metadata file.
+
+        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+        :type [ParamName]: [ParamType](, optional)
+        ...
+        :raises [ErrorType]: [ErrorDescription]
+        ...
+        :return: [ReturnDescription]
+        :rtype: [ReturnType]
+        """
         if self.raw:
             file_meta = self.butcher()[0]
             mdata = file_meta.split("\n")
@@ -72,7 +126,16 @@ class MDParser():
 
 
     def process_body(self):
-        '''Converts the body markdown into HTML.'''
+        """Converts the body markdown into HTML.
+
+        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+        :type [ParamName]: [ParamType](, optional)
+        ...
+        :raises [ErrorType]: [ErrorDescription]
+        ...
+        :return: [ReturnDescription]
+        :rtype: [ReturnType]
+        """
         if self.raw:
             file_body = self.butcher()[1]
             return markdown.markdown(file_body )
