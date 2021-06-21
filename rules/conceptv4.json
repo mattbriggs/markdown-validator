@@ -39,8 +39,17 @@
                 "value": "7",
                 "level": "Required",
                 "mitigation": "You must have an author in your document."
-            }
-
+            },
+            {
+                "name" : "The-customer-intent-statement-is-a-markdown-comment-in-the-last-line-in-the-metadata-section",
+                "id": "5",
+                "query": "Intent",
+                "flag" : "check",
+                "operation" : "",
+                "value" : "",
+                "level": "Required",
+                "mitigation": "The customer intent statement is a markdown comment in the last line in the metadata section."
+                }
         ],
         "body": [{
                 "name": "must-have-h1",
@@ -62,26 +71,154 @@
                 "level": "Required",
                 "mitigation": "You must have more than 1 H2 in your document."
             },
-            {
-                "name": "must-have-next-steps",
-                "id": "8",
-                "query": "/html/body/h2[last()]",
-                "flag": "text",
-                "operation": "==",
-                "value": "Next steps",
-                "level": "Required",
-                "mitigation": "The last H2 must be say 'Next Steps'"
+            { "name" : "H1-Tutorial:--is-followed-by-a-verb", 
+                "id": "8", "query": "/html/body/h1", 
+                "flag" : "text", 
+                "operation" : "p1", 
+                "value" : "JJ", 
+                "level": "Required", 
+                "mitigation": "H1 'Tutorial:' is followed by a verb"
             },
-            {
-                "name": "test-rule",
-                "id": "9",
-                "query": "/html/body/p",
-                "flag": "text",
-                "operation": "[]",
-                "value": "manage policies",
-                "level": "Required",
-                "mitigation": "`manage policies` must be in every intro paragraph."
-            }
+            { "name" : "The-introductory-paragraph-is-no-more-than-6-sentences", 
+                "id": "9", 
+                "query": "/html/body/p", 
+                "flag" : "s", 
+                "operation" : "<", 
+                "value" : "7", 
+                "level": "Required", 
+                "mitigation": "The introductory paragraph is no more than 6 sentences." 
+            },
+            { "name" : "Introductory-paragraph-is-not-an-ordered-list", 
+                "id": "10", 
+                "query": "/html/body/h1/child", 
+                "flag" : "dom", 
+                "operation" : "!=", 
+                "value" : "ol", 
+                "level": "Required", 
+                "mitigation": "Introductory paragraph is not an ordered list." 
+            },
+            { "name" : "Introductory-paragraph-is-not-an-unordered-list", 
+                "id": "11", 
+                "query": "/html/body/h1/child", 
+                "flag" : "dom", 
+                "operation" : "!=", 
+                "value" : "ul", 
+                "level": "Required", 
+                "mitigation": "Introductory paragraph is not an unordered list." 
+            },
+            { "name" : "The-introductory-paragraph-is-followed-by-a-sentence-that-says,-In-this-tutorial-youll-do-X", 
+                "id": "12", 
+                "query": "/html/body/p[1]", 
+                "flag" : "text", 
+                "operation" : "[]", 
+                "value" : "In this tutorial", 
+                "level": "Required", 
+                "mitigation": "The introductory paragraph is followed by a sentence that says, 'In this tutorial you'll do X...'." 
+            },
+            { "name" : "The introductory paragraph occurs before the first H2.", 
+                "id": "13", 
+                "query": ".//h2[1]/preceding-sibling::p", 
+                "flag" : "count", 
+                "operation" : ">", 
+                "value" : "0", 
+                "level": "Required", 
+                "mitigation": "The-introductory-paragraph-occurs-before-the-first-H2." 
+            },
+            { "name" : "The tutorial should not include the terms 'guide', 'article', or 'topic'", 
+                "id": "14", 
+                "query": "/html/body/", 
+                "flag" : "all", 
+                "operation" : "[]", 
+                "value" : "guide", 
+                "level": "Required", 
+                "mitigation": "The-tutorial-should-not-include-the-terms-guide-article-or-topic" 
+            },
+            { "name" : "There are no links to outside content after the Prerequisites section and before the Next steps section", 
+                "id": "24", 
+                "query": ".//h2[2]/following-sibling::a", 
+                "flag" : "count", 
+                "operation" : "==", 
+                "value" : "0", 
+                "level": "Required", 
+                "mitigation": "There-are-no-links-to-outside-content-after-the-Prerequisites-section-and-before-the-Next-steps-section." 
+            },
+            { "name" : "H2s-are-no-longer-than-60-characters", 
+                "id": "27", 
+                "query": "/html/body/h2[1]", 
+                "flag" : "text", 
+                "operation" : "l", 
+                "value" : "61", 
+                "level": "Required", 
+                "mitigation": "H2s are no longer than 60 characters" 
+            },
+            { "name" : "The-H2-headings-arent-numbered", 
+                "id": "28", 
+                "query": "/html/body/h2[1]", 
+                "flag" : "text", 
+                "operation" : "r", 
+                "value" : "^([0-9])", 
+                "level": "Required", "mitigation": 
+                "The H2 headings aren't numbered" 
+            },
+            { "name" : "The-H3-headings-arent-numbered", 
+                "id": "29", 
+                "query": "/html/body/h3[1]", 
+                "flag" : "text", 
+                "operation" : "r", 
+                "value" : "^([0-9])",
+                "level": "Required", 
+                "mitigation": "The H3 headings aren't numbered" 
+            },
+            { "name" : "No-more-than-9-H2s", 
+                "id": "32", 
+                "query": "/html/body/h2", 
+                "flag" : "count", 
+                "operation" : "<", 
+                "value" : "9", 
+                "level": "Required", 
+                "mitigation": "No more than 9 H2s" 
+            },
+            { "name" : "If-there-are-no-H2s-there-can-be-no-H3s", 
+                "id": "33", 
+                "query": "/html/body/h3", 
+                "flag" : "count", 
+                "operation" : "==", 
+                "value" : "0", 
+                "level": "Required", 
+                "mitigation": "If there are no H2s there can be no H3s."
+            },
+            { "name" : "The-second-to-last-H2-is-Clean-up-resources", 
+                "id": "34",
+                "query": ".//h2[last()]/preceding-sibling::h2", 
+                "flag" : "text", 
+                "operation" : "==", 
+                "value" : "Clean up resources", 
+                "level": "Required", 
+                "mitigation": "The second to last H2 is 'Clean up resources'." 
+            },
+            { "name" : "The-last-H2-is-Next-steps", 
+                "id": "37", 
+                "query": ".//h2[last()]", 
+                "flag" : "text", 
+                "operation" : "==", 
+                "value" : "Next steps", 
+                "level": "Required", 
+                "mitigation": "The last H2 is 'Next steps'" 
+            },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         ]
     },
     "workflows": [{
@@ -109,10 +246,5 @@
             "type": "header",
             "steps": "S-8,8-E"
         },
-        {
-            "name": "must-manage-policies-in-intro",
-            "type": "body",
-            "steps": "S-9,9-E"
-        }
-    ]
+        ]
 }
