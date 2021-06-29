@@ -84,9 +84,9 @@
             {
                 "name": "The-introductory-paragraph-is-no-more-than-6-sentences",
                 "id": "9",
-                "query": "/html/body/p",
-                "flag": "s",
-                "operation": "<",
+                "query": "/html/body/p[1]",
+                "flag": "text",
+                "operation": "s",
                 "value": "7",
                 "level": "Required",
                 "mitigation": "The introductory paragraph is no more than 6 sentences."
@@ -137,7 +137,7 @@
                 "query": "/html/body/",
                 "flag": "all",
                 "operation": "[]",
-                "value": "guide",
+                "value": "guide, article, topic",
                 "level": "Required",
                 "mitigation": "The-tutorial-should-not-include-the-terms-guide-article-or-topic"
             },
@@ -244,107 +244,107 @@
         ]
     },
     "workflows": [{
-            "name": "usecase-1",
+            "name": "usecase-1: The ms.topic attribute has a value of 'tutorial'",
             "type": "header",
             "steps": "S-1,1-E"
         },
         {
-            "name": "usecase-2",
+            "name": "usecase-2: The title attribute value includes word 'tutorial'",
             "type": "header",
             "steps": "S-2,2-E"
         },
         {
-            "name": "usecase-3",
+            "name": "usecase-3: The description attribute value includes the word 'tutorial'",
             "type": "header",
             "steps": "S-3,3-E"
         },
         {
-            "name": "usecase-4",
+            "name": "usecase-4: The ms.date attribute reflects the current week",
             "type": "header",
             "steps": "S-4,4-E"
         },
         {
-            "name": "usecase-5",
+            "name": "usecase-5: The customer intent statement is a markdown comment in the last line in the metadata section",
             "type": "header",
             "steps": "S-5,5-E"
         },
         {
-            "name": "usecase-6",
+            "name": "usecase-6: H1 is present after the metadata section",
             "type": "body",
             "steps": "S-6,6-E"
         },
         {
-            "name": "usecase-7",
+            "name": "usecase-7: H1 begins with the 'Tutorial: '",
             "type": "body",
             "steps": "S-7,7-E"
         },
         {
-            "name": "usecase-8",
+            "name": "usecase-8: H1 'Tutorial: ' is followed by a verb",
             "type": "body",
             "steps": "S-8,8-E"
         },
         {
-            "name": "usecase-9",
+            "name": "usecase-9: The introductory paragraph is no more than 6 sentences.",
             "type": "body",
             "steps": "S-9,9-E"
         },
         {
-            "name": "usecase-10",
+            "name": "usecase-10: Introductory paragraph is not an ordered list",
             "type": "body",
             "steps": "S-10,10-E"
         },
         {
-            "name": "usecase-11",
+            "name": "usecase-11: Introductory paragraph is not an unordered list.",
             "type": "body",
             "steps": "S-11,11-E"
         },
         {
-            "name": "usecase-12",
+            "name": "usecase-12: The introductory paragraph is followed by a sentence that says, 'In this tutorial you'll do X...'.",
             "type": "body",
             "steps": "S-12,12-E"
         },
         {
-            "name": "usecase-13",
+            "name": "usecase-13: The introductory paragraph occurs before the first H2.",
             "type": "body",
             "steps": "S-13,13-E"
         },
         {
-            "name": "usecase-14",
+            "name": "usecase-14: The tutorial should not include the terms 'guide', 'article', or 'topic'",
             "type": "body",
             "steps": "S-14,14-D,T-14,F-1,14-M,M-E"
         },
         {
-            "name": "usecase-24",
+            "name": "usecase-24: There are no links to outside content after the Prerequisites section and before the Next steps section",
             "type": "body",
             "steps": "S-24,24-E"
         },
         {
-            "name": "usecase-27",
+            "name": "usecase-27: H2s are no longer than 60 characters",
             "type": "body",
             "steps": "S-27,27-E"
         },
         {
-            "name": "usecase-28",
+            "name": "usecase-28: The H2 headings aren't numbered",
             "type": "body",
             "steps": "S-28,28-D,T-28,F-1,28-M,M-E"
         },        
         {
-            "name": "usecase-29",
+            "name": "usecase-29: The H3 headings aren't numbered",
             "type": "body",
             "steps": "S-29,29-D,T-29,F-1,29-M,M-E"
         },        
         {
-            "name": "usecase-32",
+            "name": "usecase-32: No more than 9 H2s",
             "type": "body",
             "steps": "S-32,32-E"
         },        
         {
-            "name": "usecase-33",
+            "name": "usecase-33: If there are no H2s there can be no H3s",
             "type": "body",
             "steps": "S-38,38-D,T-39,F-38,39-M,M-E"
         },        
         {
-            "name": "usecase-34",
+            "name": "usecase-34: The second to last H2 is 'Clean up resources'",
             "type": "body",
             "steps": "S-34,34-E"
         }

@@ -155,7 +155,7 @@ class Rules():
             check_rule = self.handler.eval_ask(self.page.metadata, self.rules[id].query, self.rules[id].flag,
             self.rules[id].operation, self.rules[id].value)
         else:
-            check_rule = self.handler.eval_query(self.page.html, self.rules[id].query, 
+            check_rule = self.handler.eval_list(self.page.html, self.rules[id].query, 
             self.rules[id].flag, self.rules[id].operation, self.rules[id].value)
         validation = Validation()
         validation.id = id

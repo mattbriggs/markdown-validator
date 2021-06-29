@@ -103,6 +103,7 @@ class TagTerminal(cmd.Cmd):
         print(handler.process_metadata(md_page.metadata, convert[1]))
         return False
 
+
     def do_eval(self, line):
         """Take a markdown path, xpath query, flag, operand, value and return a result.
 
@@ -124,7 +125,7 @@ class TagTerminal(cmd.Cmd):
             clear_string = eval_string.strip()
             handler = HA.MDHandler()
             md_page = handler.get_page(convert[0])
-            print(handler.eval_query(md_page.html, convert[1], convert[2], convert[3], clear_string))
+            print(handler.eval_list(md_page.html, convert[1], convert[2], convert[3], clear_string))
         except:
             print("Error. See `help` for command syntax.")
         return False

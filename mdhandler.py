@@ -92,6 +92,7 @@ class MDHandler():
         '''Evaluate if a string is ends with another string. Case sensitive.'''
         return in_string.endswith(in_value.strip())
 
+
     def prepare_date(self, instring):
         '''With a date string, m/d/year, convert to a date object.'''
         if instring.find("/") > -1:
@@ -152,7 +153,7 @@ class MDHandler():
     def eval_number_sentences(self, result, in_value):
         sentences = POS.MDPartofspeecher()
         no_sent = sentences.number_sentences(result)
-        return bool(no_sent == in_value)
+        return bool(no_sent <= int(in_value))
 
 
     def eval_query(self, in_html, query, flag, operator, in_value):
@@ -186,6 +187,29 @@ class MDHandler():
                 return False
         except:
             return False
+
+
+    def clear_list(self, in_list):
+        '''With a string dellimited by commas, create a list.'''
+        val_list = in_list.split(",")
+        truth_list = []
+        for v in val_list:
+            truth_list.append(v.strip())
+        return truth_list
+
+
+    def eval_list(self, in_html, keyword, flag, operator, in_value):
+        '''With the metadata block as json, the operator token, and a value, produce true/false.'''
+        in_list = self.clear_list(in_value)
+        truth = []
+        for i in in_list:
+            one_truth = self.eval_query(in_html, keyword, flag, operator, i)
+            truth.append(one_truth)
+        for i in truth:
+            if i == False:
+                return False
+            else:
+                return True
 
 
     def eval_ask(self, in_json, keyword, flag, operator, in_value):
