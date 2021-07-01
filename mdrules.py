@@ -30,8 +30,6 @@ class Rule():
         self.flag = ""
         self.operation = ""
         self.value = ""
-        self.level = ""
-        self.mitigation = ""
 
 class Validation():
     """A container class for validation responses.
@@ -50,7 +48,6 @@ class Validation():
         self.name = ""
         self.state = ""
         self.value = ""
-        self.mitigation = ""
         self.path = ""
 
 class Rules():
@@ -94,8 +91,6 @@ class Rules():
         rule.flag = indict["flag"]
         rule.operation = indict["operation"]
         rule.value = indict["value"]
-        rule.level = indict["level"]
-        rule.mitigation = indict["mitigation"]
         self.list_of_rules.append(indict["id"])
         self.rules[indict["id"]] = rule
         return 
@@ -162,7 +157,6 @@ class Rules():
         validation.name = self.rules[id].name
         validation.state = check_rule
         validation.value = self.rules[id].value
-        validation.mitigation = self.rules[id].mitigation
         validation.path = self.path
         return validation
 

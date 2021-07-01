@@ -24,24 +24,31 @@ class MDHandler():
 
     def process_xpath(self, in_html, query, flag=""):
         '''With html, an XPATH query, and a flag `count`/`text`, returns the
-        the count of nodes, or the content of the first node.'''
+        the a list with the count of nodes, the content of the nodes as a list, or the dom
+        strings as a list'''
         try:
             htmlparser = etree.HTMLParser()
             tree = etree.fromstring(in_html, htmlparser)
             if flag == "all":
-                return html2text.html2text(in_html)
+                return [html2text.html2text(in_html)]
             else:
                 result_raw = tree.xpath(query)
                 if flag == "count":
-                    return(len(result_raw))
+                    return([len(result_raw)])
                 elif flag == "text":
                     if result_raw:
-                        return result_raw[0].text
+                        list_values = []
+                        for i in result_raw:
+                            list_values.append(i.text)
+                        return list_values
                     else:
                         return None
                 elif flag == "dom":
                     if result_raw:
-                        return result_raw[0].tag
+                        list_values = []
+                        for i in result_raw:
+                            list_values.append(i.tag)
+                        return list_values
                     else:
                         return None
         except Exception as e:
@@ -140,7 +147,7 @@ class MDHandler():
         result = str(self.process_xpath(in_html, query, flag))
         index = int(operator[1:])
         sentences = POS.MDPartofspeecher()
-        pos = sentences.get_word_pos(result, index)
+        pos = sentences.get_word_pos(result[0], index)
         return pos
 
 
@@ -159,38 +166,47 @@ class MDHandler():
     def eval_query(self, in_html, query, flag, operator, in_value):
         '''With the result of an xpath, the operator token, and a value, produce true/false'''
         try:
-            result = str(self.process_xpath(in_html, query, flag))
-            if operator == "==":
-                return self.operate_equal(result, in_value)
-            elif operator == ">":
-                return self.operate_greater(result, in_value)
-            elif operator == "<":
-                return self.operate_less(result, in_value)
-            elif operator == "!=":
-                return self.operate_not(result, in_value)
-            elif operator == "[]":
-                return self.operate_contains(result, in_value)
-            elif operator == "[:":
-                return self.operate_starts(result, in_value)
-            elif operator == ":]":
-                return self.operate_ends(result, in_value)
-            elif operator == "l":
-                return self.eval_length(result, in_value)
-            elif operator[0] == "p":
-                index = int(operator[1:])
-                return self.eval_part_of_speech(result, int(index), in_value)
-            elif operator == "s":
-                return self.eval_number_sentences(result, in_value)
-            elif operator == "r":
-                return bool(re.match(in_value, result))
-            else:
-                return False
+            result = self.process_xpath(in_html, query, flag)
+            truth_list = []
+            for r in result:
+                if operator == "==":
+                    v = self.operate_equal(r, in_value)
+                elif operator == ">":
+                    v =  self.operate_greater(r, in_value)
+                elif operator == "<":
+                    v =  self.operate_less(r, in_value)
+                elif operator == "!=":
+                    v =  self.operate_not(r, in_value)
+                elif operator == "[]":
+                    v =  self.operate_contains(r, in_value)
+                elif operator == "[:":
+                    v =  self.operate_starts(r, in_value)
+                elif operator == ":]":
+                    v =  self.operate_ends(r, in_value)
+                elif operator == "l":
+                    v =  self.eval_length(r, in_value)
+                elif operator[0] == "p":
+                    index = int(operator[1:])
+                    v =  self.eval_part_of_speech(r, int(index), in_value)
+                elif operator == "s":
+                    v =  self.eval_number_sentences(r, in_value)
+                elif operator == "r":
+                    v = bool(re.match(in_value, r))
+                else:
+                    v = False
+                truth_list.append(v)
+            for i in truth_list:
+                if i == False:
+                    return False
+                else:
+                    return True
         except:
             return False
 
 
     def clear_list(self, in_list):
         '''With a string dellimited by commas, create a list.'''
+        print(in_list)
         val_list = in_list.split(",")
         truth_list = []
         for v in val_list:

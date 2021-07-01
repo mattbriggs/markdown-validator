@@ -6,9 +6,7 @@
                 "query": "ms.topic",
                 "flag": "value",
                 "operation": "==",
-                "value": "tutorial",
-                "level": "Required",
-                "mitigation": "You must have an author in your document."
+                "value": "tutorial"
             },
             {
                 "name": "The-title-attribute-value-includes-word-tutorial",
@@ -16,9 +14,7 @@
                 "query": "title",
                 "flag": "value",
                 "operation": "[]",
-                "value": "tutorial",
-                "level": "Required",
-                "mitigation": "You must have an author in your document."
+                "value": "tutorial"
             },
             {
                 "name": "The-description-attribute-value-includes-the-word-tutorial",
@@ -26,9 +22,7 @@
                 "query": "description",
                 "flag": "value",
                 "operation": "[]",
-                "value": "tutorial",
-                "level": "Required",
-                "mitigation": "You must have an author in your document."
+                "value": "tutorial"
             },
             {
                 "name": "The-msdate-attribute-reflects-the-current-week",
@@ -36,9 +30,7 @@
                 "query": "ms.date",
                 "flag": "date",
                 "operation": "<",
-                "value": "7",
-                "level": "Required",
-                "mitigation": "You must have an author in your document."
+                "value": "7"
             },
             {
                 "name": "The-customer-intent-statement-is-a-markdown-comment-in-the-last-line-in-the-metadata-section",
@@ -46,9 +38,7 @@
                 "query": "Intent",
                 "flag": "check",
                 "operation": "",
-                "value": "",
-                "level": "Required",
-                "mitigation": "The customer intent statement is a markdown comment in the last line in the metadata section."
+                "value": ""
             }
         ],
         "body": [{
@@ -57,9 +47,7 @@
                 "query": "/html/body/h1",
                 "flag": "count",
                 "operation": "==",
-                "value": "1",
-                "level": "Required",
-                "mitigation": "You must have one H1 in your document."
+                "value": "1"
             },
             {
                 "name": "more-than-one-h1",
@@ -67,9 +55,7 @@
                 "query": "/html/body/h2",
                 "flag": "count",
                 "operation": ">",
-                "value": "1",
-                "level": "Required",
-                "mitigation": "You must have more than 1 H2 in your document."
+                "value": "1"
             },
             {
                 "name": "H1-Tutorial:--is-followed-by-a-verb",
@@ -77,9 +63,7 @@
                 "query": "/html/body/h1",
                 "flag": "text",
                 "operation": "p1",
-                "value": "JJ",
-                "level": "Required",
-                "mitigation": "H1 'Tutorial:' is followed by a verb"
+                "value": "JJ"
             },
             {
                 "name": "The-introductory-paragraph-is-no-more-than-6-sentences",
@@ -87,9 +71,7 @@
                 "query": "/html/body/p[1]",
                 "flag": "text",
                 "operation": "s",
-                "value": "7",
-                "level": "Required",
-                "mitigation": "The introductory paragraph is no more than 6 sentences."
+                "value": "7"
             },
             {
                 "name": "Introductory-paragraph-is-not-an-ordered-list",
@@ -97,9 +79,7 @@
                 "query": "/html/body/h1/child",
                 "flag": "dom",
                 "operation": "!=",
-                "value": "ol",
-                "level": "Required",
-                "mitigation": "Introductory paragraph is not an ordered list."
+                "value": "ol"
             },
             {
                 "name": "Introductory-paragraph-is-not-an-unordered-list",
@@ -107,9 +87,7 @@
                 "query": "/html/body/h1/child",
                 "flag": "dom",
                 "operation": "!=",
-                "value": "ul",
-                "level": "Required",
-                "mitigation": "Introductory paragraph is not an unordered list."
+                "value": "ul"
             },
             {
                 "name": "The-introductory-paragraph-is-followed-by-a-sentence-that-says,-In-this-tutorial-youll-do-X",
@@ -117,9 +95,7 @@
                 "query": "/html/body/p[1]",
                 "flag": "text",
                 "operation": "[]",
-                "value": "In this tutorial",
-                "level": "Required",
-                "mitigation": "The introductory paragraph is followed by a sentence that says, 'In this tutorial you'll do X...'."
+                "value": "In this tutorial"
             },
             {
                 "name": "The introductory paragraph occurs before the first H2.",
@@ -127,9 +103,7 @@
                 "query": ".//h2[1]/preceding-sibling::p",
                 "flag": "count",
                 "operation": ">",
-                "value": "0",
-                "level": "Required",
-                "mitigation": "The-introductory-paragraph-occurs-before-the-first-H2."
+                "value": "0"
             },
             {
                 "name": "The tutorial should not include the terms 'guide', 'article', or 'topic'",
@@ -137,9 +111,7 @@
                 "query": "/html/body/",
                 "flag": "all",
                 "operation": "[]",
-                "value": "guide, article, topic",
-                "level": "Required",
-                "mitigation": "The-tutorial-should-not-include-the-terms-guide-article-or-topic"
+                "value": "guide, article, topic"
             },
             {
                 "name": "There are no links to outside content after the Prerequisites section and before the Next steps section",
@@ -147,39 +119,31 @@
                 "query": ".//h2[2]/following-sibling::a",
                 "flag": "count",
                 "operation": "==",
-                "value": "0",
-                "level": "Required",
-                "mitigation": "There-are-no-links-to-outside-content-after-the-Prerequisites-section-and-before-the-Next-steps-section."
+                "value": "0"
             },
             {
                 "name": "H2s-are-no-longer-than-60-characters",
                 "id": "27",
-                "query": "/html/body/h2[1]",
+                "query": "/html/body/h2",
                 "flag": "text",
                 "operation": "l",
-                "value": "61",
-                "level": "Required",
-                "mitigation": "H2s are no longer than 60 characters"
+                "value": "61"
             },
             {
                 "name": "The-H2-headings-arent-numbered",
                 "id": "28",
-                "query": "/html/body/h2[1]",
+                "query": "/html/body/h2",
                 "flag": "text",
                 "operation": "r",
-                "value": "^([0-9])",
-                "level": "Required",
-                "mitigation": "The H2 headings aren't numbered"
+                "value": "^([0-9])"
             },
             {
                 "name": "The-H3-headings-arent-numbered",
                 "id": "29",
-                "query": "/html/body/h3[1]",
+                "query": "/html/body/h3",
                 "flag": "text",
                 "operation": "r",
-                "value": "^([0-9])",
-                "level": "Required",
-                "mitigation": "The H3 headings aren't numbered"
+                "value": "^([0-9])"
             },
             {
                 "name": "No-more-than-9-H2s",
@@ -187,9 +151,7 @@
                 "query": "/html/body/h2",
                 "flag": "count",
                 "operation": "<",
-                "value": "9",
-                "level": "Required",
-                "mitigation": "No more than 9 H2s"
+                "value": "9"
             },
             {
                 "name": "If-there-are-no-H2s-there-can-be-no-H3s",
@@ -197,9 +159,7 @@
                 "query": "/html/body/h3",
                 "flag": "count",
                 "operation": "==",
-                "value": "0",
-                "level": "Required",
-                "mitigation": "If there are no H2s there can be no H3s."
+                "value": "0"
             },
             {
                 "name": "The-second-to-last-H2-is-Clean-up-resources",
@@ -207,9 +167,7 @@
                 "query": ".//h2[last()]/preceding-sibling::h2",
                 "flag": "text",
                 "operation": "==",
-                "value": "Clean up resources",
-                "level": "Required",
-                "mitigation": "The second to last H2 is 'Clean up resources'."
+                "value": "Clean up resources"
             },
             {
                 "name": "The-last-H2-is-Next-steps",
@@ -217,9 +175,7 @@
                 "query": ".//h2[last()]",
                 "flag": "text",
                 "operation": "==",
-                "value": "Next steps",
-                "level": "Required",
-                "mitigation": "The last H2 is 'Next steps'"
+                "value": "Next steps"
             },
             {
                 "name": "check-for-h2",
@@ -227,9 +183,7 @@
                 "query": "/html/body/h2",
                 "flag": "count",
                 "operation": "==",
-                "value": "0",
-                "level": "Required",
-                "mitigation": "You must have one H1 in your document."
+                "value": "0"
             },
             {
                 "name": "check-for-h3",
@@ -237,116 +191,170 @@
                 "query": "/html/body/h3",
                 "flag": "count",
                 "operation": "==",
-                "value": "0",
-                "level": "Required",
-                "mitigation": "You must have one H1 in your document."
+                "value": "0"
+            },
+            {
+                "name": "In-this-tutorial-you-learn",
+                "id": "40",
+                "query": "/html/body/",
+                "flag": "all",
+                "operation": "In this tutorial, you learn",
+                "value": "0"
+            },
+            {
+                "name": "find-div-class-checklist",
+                "id": "41",
+                "query": "/html/body/",
+                "flag": "all",
+                "operation": "[!div class=\"checklist\"]",
+                "value": "0"
             }
         ]
     },
     "workflows": [{
             "name": "usecase-1: The ms.topic attribute has a value of 'tutorial'",
-            "type": "header",
-            "steps": "S-1,1-E"
+            "steps": "S-1,1-E",
+            "level": "Required",
+            "fix": "The ms.topic attribute must have a value of 'tutorial'."
         },
         {
             "name": "usecase-2: The title attribute value includes word 'tutorial'",
-            "type": "header",
-            "steps": "S-2,2-E"
+            "steps": "S-2,2-E",
+            "level": "Required",
+            "fix": "The title attribute value must include word 'tutorial'."
         },
         {
             "name": "usecase-3: The description attribute value includes the word 'tutorial'",
-            "type": "header",
-            "steps": "S-3,3-E"
+            "steps": "S-3,3-E",
+            "level": "Required",
+            "fix": "The description attribute value must include the word 'tutorial'."
         },
         {
             "name": "usecase-4: The ms.date attribute reflects the current week",
-            "type": "header",
-            "steps": "S-4,4-E"
+            "steps": "S-4,4-E",
+            "level": "Required",
+            "fix": "The ms.date attribute must have been updated with in the current week."
         },
         {
             "name": "usecase-5: The customer intent statement is a markdown comment in the last line in the metadata section",
-            "type": "header",
-            "steps": "S-5,5-E"
+            "steps": "S-5,5-E",
+            "level": "Suggested",
+            "fix": "The customer intent statement is a markdown comment in the last line in the metadata section."
         },
         {
             "name": "usecase-6: H1 is present after the metadata section",
-            "type": "body",
-            "steps": "S-6,6-E"
+            "steps": "S-6,6-E",
+            "level": "Required",
+            "fix": "H1 is present after the metadata section."
         },
         {
             "name": "usecase-7: H1 begins with the 'Tutorial: '",
-            "type": "body",
-            "steps": "S-7,7-E"
+            "steps": "S-7,7-E",
+            "level": "Required",
+            "fix": "H1 begins with the 'Tutorial: '"
         },
         {
             "name": "usecase-8: H1 'Tutorial: ' is followed by a verb",
-            "type": "body",
-            "steps": "S-8,8-E"
+            "steps": "S-8,8-E",
+            "level": "Required",
+            "fix": "H1 'Tutorial: ' is followed by a verb"
         },
         {
             "name": "usecase-9: The introductory paragraph is no more than 6 sentences.",
-            "type": "body",
-            "steps": "S-9,9-E"
+            "steps": "S-9,9-E",
+            "level": "Required",
+            "fix": "The introductory paragraph is no more than 6 sentences."
         },
         {
             "name": "usecase-10: Introductory paragraph is not an ordered list",
             "type": "body",
-            "steps": "S-10,10-E"
+            "steps": "S-10,10-E",
+            "level": "Required",
+            "fix": "Introductory paragraph is not an ordered list."
         },
         {
             "name": "usecase-11: Introductory paragraph is not an unordered list.",
             "type": "body",
-            "steps": "S-11,11-E"
+            "steps": "S-11,11-E",
+            "level": "Required",
+            "fix": "Introductory paragraph is not an unordered list."
         },
         {
             "name": "usecase-12: The introductory paragraph is followed by a sentence that says, 'In this tutorial you'll do X...'.",
             "type": "body",
-            "steps": "S-12,12-E"
+            "steps": "S-12,12-E",
+            "level": "Required",
+            "fix": "The introductory paragraph is followed by a sentence that says, 'In this tutorial you'll do X...'."
         },
         {
             "name": "usecase-13: The introductory paragraph occurs before the first H2.",
             "type": "body",
-            "steps": "S-13,13-E"
+            "steps": "S-13,13-E",
+            "level": "Required",
+            "fix": "The introductory paragraph occurs before the first H2."
         },
         {
             "name": "usecase-14: The tutorial should not include the terms 'guide', 'article', or 'topic'",
             "type": "body",
-            "steps": "S-14,14-D,T-14,F-1,14-M,M-E"
+            "steps": "S-14,14-D,T-14,F-1,14-M,M-E",
+            "level": "Required",
+            "fix": "The tutorial should not include the terms 'guide', 'article', or 'topic'."
         },
         {
-            "name": "usecase-24: There are no links to outside content after the Prerequisites section and before the Next steps section",
+            "name": "usecase-15:The phrase 'In this tutorial, you learn how to: ' is followed by '>[!div class='checklist']'.",
             "type": "body",
-            "steps": "S-24,24-E"
+            "steps": "S-40,40-D,T-41,F-1,41-D,T-1,F-1,41-M,1-M,M-E",
+            "level": "Required",
+            "fix": "The phrase 'In this tutorial, you learn how to: ' is followed by '>[!div class='checklist']'."
+        },
+        {
+            "name": "usecase-24: There are no links to outside content after the Prerequisites section and before the Next steps section.",
+            "type": "body",
+            "steps": "S-24,24-E",
+            "level": "Required",
+            "fix": "There are no links to outside content after the Prerequisites section and before the Next steps section."
         },
         {
             "name": "usecase-27: H2s are no longer than 60 characters",
             "type": "body",
-            "steps": "S-27,27-E"
+            "steps": "S-27,27-E",
+            "level": "Required",
+            "fix": "H2s are no longer than 60 characters."
         },
         {
             "name": "usecase-28: The H2 headings aren't numbered",
             "type": "body",
-            "steps": "S-28,28-D,T-28,F-1,28-M,M-E"
+            "steps": "S-28,28-D,F-1,T-28,28-M,M-E",
+            "level": "Required",
+            "fix": "The H2 headings aren't numbered."
         },        
         {
             "name": "usecase-29: The H3 headings aren't numbered",
             "type": "body",
-            "steps": "S-29,29-D,T-29,F-1,29-M,M-E"
+            "steps": "S-29,29-D,T-29,F-1,29-M,M-E",
+            "level": "Required",
+            "fix": "The H3 headings aren't numbered."
         },        
         {
             "name": "usecase-32: No more than 9 H2s",
             "type": "body",
-            "steps": "S-32,32-E"
-        },        
+            "steps": "S-32,32-E",
+            "level": "Required",
+            "fix": "No more than 9 H2s."
+        },
         {
-            "name": "usecase-33: If there are no H2s there can be no H3s",
+            "name": "usecase-38: If there are no H2s there can be no H3s",
             "type": "body",
-            "steps": "S-38,38-D,T-39,F-38,39-M,M-E"
+            "steps": "S-38,38-D,T-39,F-38,39-M,M-E",
+            "level": "Required",
+            "fix": "The 'Next steps' H2 is followed by a link."
         },        
         {
             "name": "usecase-34: The second to last H2 is 'Clean up resources'",
             "type": "body",
-            "steps": "S-34,34-E"
+            "steps": "S-34,34-E",
+            "level": "Required",
+            "fix": "The second to last H2 is 'Clean up resources'."
         }
     ]
 }

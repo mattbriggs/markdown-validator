@@ -30,8 +30,12 @@ def validate_with_workflows(rules, rule_json_file):
     for i in data["workflows"]:
         work = WOR.Workflow()
         run = work.run_workflow(rules, i["steps"])
+
         print(i["name"])
         print(run.state)
+        print(i["level"])
+        if run.state == False:
+            print(i["fix"])
         print("=============\n")
 
 # run validation
