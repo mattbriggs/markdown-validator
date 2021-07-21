@@ -118,13 +118,15 @@ class Rules():
     def load_page(self, file_to_check):
         """With a filepath to a markdown page, load the page.
 
-        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
-        :type [ParamName]: [ParamType](, optional)
+        :param file_to_check: File path to the a markdown file.
+        :type file_to_check: String
         ...
-        :raises [ErrorType]: [ErrorDescription]
+        :raises General: Error getting file. Captures the exception.
         ...
-        :return: [ReturnDescription]
-        :rtype: [ReturnType]
+        :return: Rule.path. File path to the a markdown file.
+        :rtype: String
+        :return: Rule.page. 
+        :rtype: Page object
         """
         try:
             self.path = file_to_check
@@ -162,15 +164,16 @@ class Rules():
 
 
     def validate_rules(self, json_rules, file_to_check):
-        """With rules and a file to check run all of the rules.
+        """With rules and a file to check run all of the rules. Add the checks
+        to the `checks` property of the `Rules` object.
 
-        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
-        :type [ParamName]: [ParamType](, optional)
+        :param json_rules: A json object that contains valid rules.
+        :type file_to_check: File path to the a markdown file.
         ...
-        :raises [ErrorType]: [ErrorDescription]
+        :raises ValueError: Duplicate rule ID in the JSON file.
         ...
-        :return: [ReturnDescription]
-        :rtype: [ReturnType]
+        :return: None
+        :rtype: None
         """
         self.load_rules(json_rules)
         self.load_page(file_to_check)

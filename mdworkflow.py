@@ -5,7 +5,9 @@ Classes for the runner.
     retrieval of boxes.
 '''
 
+import json
 import mdrunner as RUN
+import mdrules as RUL
 
 class Workflow():
     """Class to process a workflow object.
@@ -107,8 +109,10 @@ class Workflow():
         A workflow is a list of tuples. Returns a runner
         object.
 
-        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
-        :type [ParamName]: [ParamType](, optional)
+        :param rules: Processed rules.
+        :type rules: Rules object.
+        :param in_steps: A list of tuples referencing rules.
+        :type in_steps: List
         ...
         :raises [ErrorType]: [ErrorDescription]
         ...
@@ -120,7 +124,6 @@ class Workflow():
 
         runner = RUN.Runner()
         runner.shelf_boxes(workflow)
-
 
         workflow_states = []
         decision = None
@@ -158,3 +161,44 @@ class Workflow():
         workflow_state = self.check_truth(workflow_states)
         runner.state = workflow_state
         return runner
+
+class Workflows():
+    '''Class to process workflows'''
+
+    def __init__(self):
+        self.list_of_workflows = []
+        self.results = {}
+        self.flows = {}
+        self.fix = {}
+        self.rules = None
+
+
+    def load_flows(self, rules, rule_json_file):
+        '''With rules and a rule_json_file extract the workflows.'''
+        self.rules = rules
+        with open(rule_json_file, 'r') as json_file:
+            data = json.load(json_file)
+        for ix, i in enumerate(data["workflows"]):
+            self.list_of_workflows.append(ix)
+            self.flows[ix] = i["steps"]
+            self.fix[ix] = i["fix"]
+
+
+    def validate_all_workflows(self):
+        '''With loaded rules and worklows, add result validation objects.'''
+        for i in self.list_of_workflows:
+            work = Workflow()
+            run = work.run_workflow(self.rules, self.flows[i])
+            if run:
+                self.results[i] = True
+            else:
+                self.results[i] = False
+    
+    def get_validation(self):
+        '''Retrieve the validation status.'''
+        print('{')
+        for i in self.list_of_workflows:
+            print('{} : '.format(i))
+            print('"result: " {},'.format(self.results[i]))
+            print('"fix: " {},'.format(self.fix[i]))
+        print('}')

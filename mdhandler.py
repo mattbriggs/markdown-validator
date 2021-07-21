@@ -139,7 +139,6 @@ class MDHandler():
 
     def eval_length(self, instring, in_value):
         size = len(instring)
-        print("{} : {}".format(size, in_value))
         return bool(size < int(in_value))
 
 
@@ -205,8 +204,7 @@ class MDHandler():
 
 
     def clear_list(self, in_list):
-        '''With a string dellimited by commas, create a list.'''
-        print(in_list)
+        '''With a string delimited by commas, create a list.'''
         val_list = in_list.split(",")
         truth_list = []
         for v in val_list:
