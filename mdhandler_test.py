@@ -11,7 +11,7 @@ page = handler.get_page(single_file)
 def test_process_xpath():
     '''Test to check.'''
     query = "/html/body/h2[1]"
-    x = handler.process_xpath(page.html, query, "text")
+    x = handler.process_xpath(page.html, query, "text")[0]
     assert x == "Why use Azure Stack Hub?"
 
 
@@ -62,25 +62,69 @@ def test_operate_contains():
     assert x == True
 
 
-def operate_starts():
+def test_operate_starts():
     in_string = "This is the monkey."
     test_string = "This is"
     x= handler.operate_ends(in_string, test_string)
     assert x == True
 
-def operate_ends():
+def test_operate_ends():
     in_string = "This is the monkey."
     test_string = "monkey."
     x = handler.operate_starts(in_string, test_string)
     assert x == True
 
+# start
+def test_eval_date_equal():
+    in_string = "3/1/21"
+    test_string = "3/1/21"
+    x = handler.eval_date(in_string, "==", test_string)
+    assert x == True
 
+
+def test_eval_date_greater():
+    in_string = "3/1/21"
+    test_string = "3/1/20"
+    x = handler.eval_date(in_string, ">", test_string)
+    assert x == True
+
+
+def test_eval_length():
+    in_string = "123"
+    test_string = "5"
+    x = handler.eval_length(in_string, test_string)
+    assert x == True
+
+
+def test_get_part_of_speech():
+    x = handler.get_part_of_speech(self, page.html, "/html/body/h1", "text", "p1")
+    assert x == "NN"
+
+
+def test_eval__part_of_speech():
+    in_string = "This is the monkey."
+    test_string = "monkey."
+    x = handler.eval_part_of_speech(self, result, index, in_value)
+    assert x == True
+
+def test_eval__number_sentences():
+    in_string = "This is the monkey."
+    test_string = "monkey."
+    x = handler.eval_number_sentences(self, result, in_value)
+    assert x == True
+# end
 def test_eval_query():
     '''Test to check.'''
     query = "/html/body/h2[1]"
     in_value = "Why use Azure Stack Hub?"
     x = handler.eval_query(page.html, query, "text", "==", in_value)
     assert x == True
+
+def test_clear_list():
+    pass
+
+def test_eval_list():
+    pass
 
 
 def test_eval_ask():

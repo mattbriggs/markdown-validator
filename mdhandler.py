@@ -138,6 +138,7 @@ class MDHandler():
 
 
     def eval_length(self, instring, in_value):
+        '''Checks that the length of a string is less than the a number.'''
         size = len(instring)
         return bool(size < int(in_value))
 
