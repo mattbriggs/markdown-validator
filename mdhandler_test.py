@@ -101,7 +101,7 @@ def test_get_part_of_speech():
     assert x == "NN"
 
 
-def test_eval__part_of_speech():
+def test_eval_part_of_speech():
     in_string = "This is the monkey."
     test_string = "monkey."
     x = handler.eval_part_of_speech(self, result, index, in_value)
