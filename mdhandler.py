@@ -207,18 +207,19 @@ class MDHandler():
     def clear_list(self, in_list):
         '''With a string delimited by commas, create a list.'''
         val_list = in_list.split(",")
-        truth_list = []
+        object_list = []
         for v in val_list:
-            truth_list.append(v.strip())
-        return truth_list
+            object_list.append(v.strip())
+        return object_list
 
 
-    def eval_list(self, in_html, keyword, flag, operator, in_value):
-        '''With the metadata block as json, the operator token, and a value, produce true/false.'''
+    def eval_list(self, in_html, query, flag, operator, in_value):
+        '''If the value to be evaluated is a list, then run the expath query on
+        each item.'''
         in_list = self.clear_list(in_value)
         truth = []
         for i in in_list:
-            one_truth = self.eval_query(in_html, keyword, flag, operator, i)
+            one_truth = self.eval_query(in_html, query, flag, operator, i)
             truth.append(one_truth)
         for i in truth:
             if i == False:

@@ -53,11 +53,10 @@ class Workflow():
         :return: [ReturnDescription]
         :rtype: [ReturnType]
         """
-        for i in in_list:
-            if i == False:
-                return False
-            else:
-                return True
+        if False in in_list:
+            return False
+        else:
+            return True
 
 
     def parse_steps(self, insteps):
@@ -188,17 +187,17 @@ class Workflows():
         '''With loaded rules and worklows, add result validation objects.'''
         for i in self.list_of_workflows:
             work = Workflow()
-            run = work.run_workflow(self.rules, self.flows[i])
-            if run:
-                self.results[i] = True
-            else:
-                self.results[i] = False
-    
+            work.run_workflow(self.rules, self.flows[i])
+        print(self.results)
+        return(self.results)
+
+
     def get_validation(self):
         '''Retrieve the validation status.'''
-        print('{')
-        for i in self.list_of_workflows:
-            print('{} : '.format(i))
-            print('"result: " {},'.format(self.results[i]))
-            print('"fix: " {},'.format(self.fix[i]))
-        print('}')
+        output = {}
+        for inx, i in enumerate(self.list_of_workflows):
+            record = {}
+            record["result"] = self.results[i]
+            record["fix"] = self.fix[i]
+            output[inx] = record
+        return output

@@ -19,7 +19,6 @@ def testprocess_metadata():
     '''Test to check.'''
     value1 = "ms.author"
     x = handler.process_metadata(page.metadata, value1)
-
     assert x == 'patricka'
 
 
@@ -65,16 +64,17 @@ def test_operate_contains():
 def test_operate_starts():
     in_string = "This is the monkey."
     test_string = "This is"
-    x= handler.operate_ends(in_string, test_string)
+    x = handler.operate_starts(in_string, test_string)
     assert x == True
+
 
 def test_operate_ends():
     in_string = "This is the monkey."
     test_string = "monkey."
-    x = handler.operate_starts(in_string, test_string)
+    x = handler.operate_ends(in_string, test_string)
     assert x == True
 
-# start
+
 def test_eval_date_equal():
     in_string = "3/1/21"
     test_string = "3/1/21"
@@ -97,22 +97,22 @@ def test_eval_length():
 
 
 def test_get_part_of_speech():
-    x = handler.get_part_of_speech(self, page.html, "/html/body/h1", "text", "p1")
+    x = handler.get_part_of_speech(page.html, "/html/body/h1", "text", "p1")
     assert x == "NN"
 
 
 def test_eval_part_of_speech():
     in_string = "This is the monkey."
-    test_string = "monkey."
-    x = handler.eval_part_of_speech(self, result, index, in_value)
+    test_string = "DT"
+    x = handler.eval_part_of_speech(in_string, 1, test_string)
     assert x == True
 
+
 def test_eval__number_sentences():
-    in_string = "This is the monkey."
-    test_string = "monkey."
-    x = handler.eval_number_sentences(self, result, in_value)
+    in_string = "This is the monkey. This is the dog. I have been to the moon, and back."
+    x = handler.eval_number_sentences(in_string, 3)
     assert x == True
-# end
+
 def test_eval_query():
     '''Test to check.'''
     query = "/html/body/h2[1]"
@@ -120,11 +120,22 @@ def test_eval_query():
     x = handler.eval_query(page.html, query, "text", "==", in_value)
     assert x == True
 
+
 def test_clear_list():
-    pass
+    in_string = "1, 2, 3, 4, 5"
+    test_string = ['1', '2', '3', '4', '5']
+    x = handler.clear_list(in_string)
+    assert x == test_string
+
 
 def test_eval_list():
-    pass
+    '''Test to check'''
+    query = "/html/body/"
+    flag = "all"
+    operation = "[]"
+    value = "consistent, public Azure, integrated"
+    x = handler.eval_list(page.html, query, flag, operation, value)
+    assert x == True
 
 
 def test_eval_ask():
