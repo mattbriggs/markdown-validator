@@ -147,6 +147,16 @@ class Workflow():
                 if decision == False:
                     decision = rules.checks[str(target)].state
                     dec_flag = False
+            elif source == "f" and target == "r":
+                if dec_flag == False:
+                    dec_flag = True
+                else:
+                    dec_flag = False
+            elif source == "t" and target == "r":
+                if dec_flag == False:
+                    dec_flag = True
+                else:
+                    dec_flag = False
             elif self.is_number(source) and target == "m":
                 if merge == False:
                     workflow_states.append(decision)
@@ -165,6 +175,8 @@ class Workflows():
     '''Class to process workflows'''
 
     def __init__(self):
+        self.state = None
+        self.summary = None
         self.list_of_workflows = []
         self.results = {}
         self.flows = {}
@@ -181,15 +193,23 @@ class Workflows():
             self.list_of_workflows.append(ix)
             self.flows[ix] = i["steps"]
             self.fix[ix] = i["fix"]
+        self.state = "Load"
 
 
     def validate_all_workflows(self):
         '''With loaded rules and worklows, add result validation objects.'''
-        for i in self.list_of_workflows:
-            work = Workflow()
-            work.run_workflow(self.rules, self.flows[i])
-        print(self.results)
-        return(self.results)
+        if self.state == "Load":
+            self.summary = True
+            for i in self.list_of_workflows:
+                print(i)
+                work = Workflow()
+                result = work.run_workflow(self.rules, self.flows[i]).state
+                print(result)
+                self.results[i] = result
+                if result == False:
+                    self.summary = False
+        else:
+            return("Error. Must load flows.")
 
 
     def get_validation(self):

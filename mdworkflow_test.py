@@ -3,8 +3,6 @@ Unit tests using pytest for mdworkflow.py.
 '''
 
 import json
-import mdhandler as HA
-import mdrunner as RUN
 import mdrules as RU
 import mdworkflow as WOR
 
@@ -33,6 +31,9 @@ check_rules = validate_with_rules(rule_json_file, markdown_file)
 check_workflows = WOR.Workflows()
 check_workflows.load_flows(check_rules, rule_json_file)
 check_workflows.validate_all_workflows()
+print(check_workflows.list_of_workflows)
+print(check_workflows.fix)
+
 test_workflow = WOR.Workflow()
 
 print(check_workflows.results)
@@ -50,26 +51,35 @@ def test_workflow_make_proper_string():
 def test_workflow_make_proper_int():
     assert 1 == test_workflow.make_proper("1")
 
-def test_workflow_run_workflow():
-    pass
+def test_workflow_run_workflow_flow1():
+    workflow_test = "S-1,1-E"
+    result = test_workflow.run_workflow(check_rules, workflow_test)
+    assert False == result.state
+
+def test_workflow_run_workflow_flow2():
+    workflow_test = "S-D,T-1,F-2,1-M,2-M,M-E"
+    result = test_workflow.run_workflow(check_rules, workflow_test)
+    assert True == result.state
+
+def test_workflow_run_workflow_flow3():
+    workflow_test = "S-D,T-1,1-2,2-M,F-3,3-M,M-E"
+    result = test_workflow.run_workflow(check_rules, workflow_test)
+    assert False == result.state
+
+def test_workflow_run_workflow_flow4():
+    workflow_test = "S-D,T-R,F-R,R-M,R-M,M-E"
+    result = test_workflow.run_workflow(check_rules, workflow_test)
+    assert True == result.state
 
 def test_workflows_load_flows():
     workflows = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
     assert workflows == check_workflows.list_of_workflows
 
 
-# def test_workflows_validate_all_workflows():
-#     output = check_workflows.validate_all_workflows()
-#     print(output)
-#     evaluate = True
-#     checkall = []
-#     for i in check_workflows.list_of_workflows:
-#         checkall.append(output[i])
-#     if False in checkall:
-#         evaluate = False
-#     assert evaluate == True
+def test_workflows_validate_all_workflows():
+    assert check_workflows.summary == False
 
 
 def test_workflows_get_validation():
     output = check_workflows.get_validation()
-    assert output[0]["result"] == True
+    assert output[0]["result"] == False
