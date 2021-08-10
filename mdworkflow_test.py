@@ -57,17 +57,17 @@ def test_workflow_run_workflow_flow1():
     assert False == result.state
 
 def test_workflow_run_workflow_flow2():
-    workflow_test = "S-D,T-1,F-2,1-M,2-M,M-E"
+    workflow_test = "S-1,1-D,T-2,F-3,2-M,3-M,M-E"
     result = test_workflow.run_workflow(check_rules, workflow_test)
     assert True == result.state
 
 def test_workflow_run_workflow_flow3():
-    workflow_test = "S-D,T-1,1-2,2-M,F-3,3-M,M-E"
+    workflow_test = "S-1,D-1,T-2,F-3,2-3,4-M,3-M,M-E"
     result = test_workflow.run_workflow(check_rules, workflow_test)
     assert False == result.state
 
 def test_workflow_run_workflow_flow4():
-    workflow_test = "S-D,T-R,F-R,R-M,R-M,M-E"
+    workflow_test = "S-1,D-1,T-R,F-R,R-M,R-M,M-E"
     result = test_workflow.run_workflow(check_rules, workflow_test)
     assert True == result.state
 

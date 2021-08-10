@@ -47,18 +47,17 @@ markdown_file = r"C:\git\ms\azure-docs-pr\articles\governance\policy\tutorials\c
 
 check = validate_with_rules(rule_json_file, markdown_file)
 
-# print('''
-# =============
-# check rules
-# =============
-# ''')
-# for i in check.list_of_rules:
-#     print(check.checks[i].id)
-#     print(check.checks[i].name)
-#     print(check.checks[i].state)
-#     print(check.checks[i].value)
-#     print(check.checks[i].mitigation)
-#     print("=============\n")
+print('''
+=============
+check rules
+=============
+''')
+for i in check.list_of_rules:
+    print(check.checks[i].id)
+    print(check.checks[i].name)
+    print(check.checks[i].state)
+    print(check.checks[i].value)
+    print("=============\n")
 
 # run workflow
 

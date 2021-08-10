@@ -5,9 +5,9 @@ Classes for the runner.
     retrieval of boxes.
 '''
 
+import sys
 import json
 import mdrunner as RUN
-import mdrules as RUL
 
 class Workflow():
     """Class to process a workflow object.
@@ -76,11 +76,11 @@ class Workflow():
             for i in steps:
                 tup = tuple(i.split("-"))
                 workflow.append(tup)
-            
+
             return workflow
         else:
             print("Malformed workflow: {}".format(insteps))
-            exit()
+            sys.exit()
 
 
     def make_proper(self, in_string):
@@ -104,7 +104,7 @@ class Workflow():
 
 
     def run_workflow(self, rules, in_steps):
-        """Process a rules and workflow steps. rules are a Rule object. 
+        """Process a rules and workflow steps. rules are a Rule object.
         A workflow is a list of tuples. Returns a runner
         object.
 
@@ -124,10 +124,9 @@ class Workflow():
         runner = RUN.Runner()
         runner.shelf_boxes(workflow)
 
-        workflow_states = []
-        decision = None
-        dec_flag = False
-        merge = False
+        state_workflow = None
+        state_decision = None
+        state_merge = None
         counter = 0
 
         for step in workflow:
@@ -136,39 +135,71 @@ class Workflow():
             source = self.make_proper(step[0])
             target = self.make_proper(step[1])
 
-            if self.is_number(source) and target == "d":
-                decision = rules.checks[str(source)].state
-                dec_flag = True
-            elif source == "t" and dec_flag == True:
-                if decision == True:
-                    decision = rules.checks[str(target)].state
-                    dec_flag = False
-            elif source == "f" and dec_flag == True:
-                if decision == False:
-                    decision = rules.checks[str(target)].state
-                    dec_flag = False
-            elif source == "f" and target == "r":
-                if dec_flag == False:
-                    dec_flag = True
-                else:
-                    dec_flag = False
-            elif source == "t" and target == "r":
-                if dec_flag == False:
-                    dec_flag = True
-                else:
-                    dec_flag = False
-            elif self.is_number(source) and target == "m":
-                if merge == False:
-                    workflow_states.append(decision)
-                    decision = None
-                    merge = True
-                else:
-                    merge = False
-            elif self.is_number(source) and target != "m":
-                workflow_states.append(rules.checks[str(source)].state)
+            # 1
+            if source == "s" and self.is_number(target):
+                state_workflow = rules.checks[str(target)].state
 
-        workflow_state = self.check_truth(workflow_states)
-        runner.state = workflow_state
+            # 2
+            elif self.is_number(source) and target == "d":
+                state_decision = rules.checks[str(source)].state
+                state_merge = True
+
+            # 3
+            elif source == "m" and target == "d":
+                state_workflow = state_decision
+                state_merge = True
+                state_decision = None
+
+            # 4
+            elif source == "t" and self.is_number(target) and state_decision == True:
+                state_workflow = rules.checks[str(target)].state
+                state_decision = None
+
+            # 5
+            elif source == "f" and self.is_number(target) and state_decision == False:
+                state_workflow = rules.checks[str(target)].state
+                state_decision = None
+
+            # 6
+            elif source == "t" and target == "r" and state_decision == True:
+                state_decision = False
+
+            # 7
+            elif source == "f" and target == "r" and state_decision == False:
+                state_decision = True
+
+            # 8
+            elif self.is_number(source) and target == "m" and state_merge == True:
+                state_workflow = state_decision
+                state_merge = None
+                state_decision = None
+
+            # 9
+            elif source == "m" and self.is_number(target) and state_merge == None:
+                state_workflow = state_decision
+                state_merge = None
+                state_decision = None
+
+            # 10
+            elif source == "m" and target == "e":
+                state_workflow = state_decision
+                state_merge = None
+                state_decision = None
+                # end
+
+            # 11
+            elif self.is_number(source) and target == "e":
+                state_workflow = rules.checks[str(source)].state
+                # end
+
+            # 12
+            elif self.is_number(source) and self.is_number(target):
+                if rules.checks[str(source)].state == False:
+                    state_workflow = False
+                if rules.checks[str(target)].state == False:
+                    state_workflow = False
+
+        runner.state = state_workflow
         return runner
 
 class Workflows():
@@ -209,7 +240,7 @@ class Workflows():
                 if result == False:
                     self.summary = False
         else:
-            return("Error. Must load flows.")
+            return "Error. Must load flows."
 
 
     def get_validation(self):
