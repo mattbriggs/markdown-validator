@@ -28,11 +28,16 @@ def validate_with_workflows(rules, rule_json_file, workflow):
 rule_json_file = r"C:\git\mb\markdown-validator\testdata\checkworkflow.json"
 markdown_file = r"C:\git\mb\markdown-validator\testdata\azure-stack-overview.md"
 check_rules = validate_with_rules(rule_json_file, markdown_file)
+print("List of checks: {}".format(check_rules.checks))
+print("List of rules: {}".format(check_rules.list_of_rules))
+for i in check_rules.list_of_rules:
+    print("List of check: {} : {}".format(i, check_rules.checks[i].state))
+    # rules.checks[target].state
 check_workflows = WOR.Workflows()
 check_workflows.load_flows(check_rules, rule_json_file)
 check_workflows.validate_all_workflows()
-print(check_workflows.list_of_workflows)
-print(check_workflows.fix)
+# print(check_workflows.list_of_workflows)
+# print(check_workflows.fix)
 
 test_workflow = WOR.Workflow()
 
@@ -59,15 +64,15 @@ def test_workflow_run_workflow_flow1():
 def test_workflow_run_workflow_flow2():
     workflow_test = "S-1,1-D,T-2,F-3,2-M,3-M,M-E"
     result = test_workflow.run_workflow(check_rules, workflow_test)
-    assert True == result.state
+    assert False == result.state
 
 def test_workflow_run_workflow_flow3():
-    workflow_test = "S-1,D-1,T-2,F-3,2-3,4-M,3-M,M-E"
+    workflow_test = "S-1,1-D,T-2,F-3,2-3,4-M,3-M,M-E"
     result = test_workflow.run_workflow(check_rules, workflow_test)
     assert False == result.state
 
 def test_workflow_run_workflow_flow4():
-    workflow_test = "S-1,D-1,T-R,F-R,R-M,R-M,M-E"
+    workflow_test = "S-1,1-D,T-R,F-R,R-M,R-M,M-E"
     result = test_workflow.run_workflow(check_rules, workflow_test)
     assert True == result.state
 

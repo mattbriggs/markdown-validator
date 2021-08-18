@@ -62,25 +62,21 @@ class Workflow():
     def parse_steps(self, insteps):
         """Take a raw set of steps and return as list of tuples.
 
-        :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
-        :type [ParamName]: [ParamType](, optional)
+        :param insteps: a string that is a list of tuples. Each tuple marked with a dash.
+        :type string: string
         ...
         :raises [ErrorType]: [ErrorDescription]
         ...
         :return: [ReturnDescription]
         :rtype: [ReturnType]
         """
-        if insteps.count("-") % 2 == 0:
-            steps = insteps.split(",")
-            workflow = []
-            for i in steps:
-                tup = tuple(i.split("-"))
-                workflow.append(tup)
-
-            return workflow
-        else:
-            print("Malformed workflow: {}".format(insteps))
-            sys.exit()
+        steps = insteps.split(",")
+        workflow = []
+        for i in steps:
+            tup = tuple(i.split("-"))
+            workflow.append(tup)
+        print(workflow)
+        return workflow
 
 
     def make_proper(self, in_string):
@@ -126,7 +122,7 @@ class Workflow():
 
         state_workflow = None
         state_decision = None
-        state_merge = None
+        state_merge = False
         counter = 0
 
         for step in workflow:
@@ -135,65 +131,74 @@ class Workflow():
             source = self.make_proper(step[0])
             target = self.make_proper(step[1])
 
+            print("Run: {} [{}-{}]".format(counter, source, target))
+
             # 1
             if source == "s" and self.is_number(target):
+                print("#1: {}-{} | {} | WF: {}".format(source, target, rules.checks[str(target)].state, state_workflow))
                 state_workflow = rules.checks[str(target)].state
 
             # 2
             elif self.is_number(source) and target == "d":
+                print("#2: {}-{} | WF: {}".format(source, target, state_workflow))
                 state_decision = rules.checks[str(source)].state
                 state_merge = True
 
             # 3
             elif source == "m" and target == "d":
+                print("#4: {}-{}  | WF: {}".format(source, target, state_workflow))
                 state_workflow = state_decision
                 state_merge = True
                 state_decision = None
 
             # 4
             elif source == "t" and self.is_number(target) and state_decision == True:
+                print("#4: {}-{} | WF: {}".format(source, target, workflow))
                 state_workflow = rules.checks[str(target)].state
-                state_decision = None
 
             # 5
             elif source == "f" and self.is_number(target) and state_decision == False:
+                print("#5: {}-{} | WF: {}".format(source, target, state_workflow))
                 state_workflow = rules.checks[str(target)].state
-                state_decision = None
 
             # 6
             elif source == "t" and target == "r" and state_decision == True:
+                print("#6: {}-{} | WF: {}".format(source, target, workflow))
                 state_decision = False
 
             # 7
             elif source == "f" and target == "r" and state_decision == False:
+                print("#7: {}-{} | WF: {}".format(source, target, state_workflow))
                 state_decision = True
 
             # 8
             elif self.is_number(source) and target == "m" and state_merge == True:
+                print("#8: {}-{} | WF: {}".format(source, target, state_workflow))
                 state_workflow = state_decision
                 state_merge = None
-                state_decision = None
 
             # 9
             elif source == "m" and self.is_number(target) and state_merge == None:
+                print("#9: {}-{} | WF: {}".format(source, target, state_workflow))
                 state_workflow = state_decision
-                state_merge = None
+                state_merge = False
                 state_decision = None
 
             # 10
             elif source == "m" and target == "e":
                 state_workflow = state_decision
-                state_merge = None
-                state_decision = None
+                print("#10: {}-{} | WF: {}".format(source, target, state_workflow))
                 # end
 
             # 11
             elif self.is_number(source) and target == "e":
+                print("#11: {}-{} | {} | WF: {}".format(source, target, rules.checks[str(source)].state, state_workflow))
                 state_workflow = rules.checks[str(source)].state
                 # end
 
             # 12
             elif self.is_number(source) and self.is_number(target):
+                print("#12: {}-{} | WF: {}".format(source, target, state_workflow))
                 if rules.checks[str(source)].state == False:
                     state_workflow = False
                 if rules.checks[str(target)].state == False:
