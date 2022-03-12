@@ -95,7 +95,7 @@ Each rule contains the following attributes:
     "value": "Azure Monitor",
     "level": "Required",
     "mitigation": "The H3 headings aren't numbered"
-},
+}
 
 ```
 
