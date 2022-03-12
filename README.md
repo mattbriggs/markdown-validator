@@ -179,4 +179,6 @@ Alphabetical list of part-of-speech tags used in the [Penn Treebank Project](htt
 
 Alphabetical list of nodes types in the document object model.
 
+**todo**
+
 [^1]: Metadata can be programmatically checked in a few ways. 1. The metadata section can be rendered as JSON. This JSON can than have JSON Queries run against it and the return value assessed. 2. The metadata section can be converted into a dictionary and then the dictionary compared with a validation dictionary. An implementation of this is the Python library [Cerebus](https://docs.python-cerberus.org/en/stable/index.html). 3. In this case, we can simply convert the metadata section into a set of key value pairs. Depending on the datatype of each value we can run operations to determine if is the expected value. <br><br> Another method of schema-based validation has suggested itself and that is using [JSON schema validation](https://json-schema.org/).
