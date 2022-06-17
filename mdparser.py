@@ -60,7 +60,7 @@ class MDParser():
             self.raw = body
             return body
         except Exception as e:
-            return "A path wasn't passed to the Parser. Error: {e}"
+            return "A path wasn't passed to the Parser. Error: {}".format(e)
 
     def butcher(self):
         """Split a file into three parts.
