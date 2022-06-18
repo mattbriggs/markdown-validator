@@ -60,7 +60,7 @@ def write_csv(outbody, path):
     csvout.close()
 
 
-def get_files(inpath, extension=".md"):
+def get_files(inpath):
     """With the directory path, returns a list of markdown file paths.
 
         :param inpath: Path to the folder containing the files.
@@ -76,7 +76,7 @@ def get_files(inpath, extension=".md"):
     for (path, dirs, files) in os.walk(inpath):
         for filename in files:
             ext_index = filename.find(".")
-            if filename[ext_index+1:] == extension:
+            if filename[ext_index+1:] == "md":
                 entry = path + "\\" + filename
                 outlist.append(entry)
     return outlist

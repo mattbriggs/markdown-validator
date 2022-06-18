@@ -29,8 +29,8 @@ class MDScanner():
         rull = RU.Rules()
         rull.validate_rules(rules_json, markdown_file)
         for i in rull.list_of_rules:
-            if rull.checks[i].state == "True":
-                validation["status"] += 1
+            if rull.checks[i].state == True:
+                validation["score"] += 1
         for i in rull.list_of_rules:
             check = {}
             check["id"] = rull.checks[i].id
