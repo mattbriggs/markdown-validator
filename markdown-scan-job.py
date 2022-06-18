@@ -1,15 +1,22 @@
 
-import csv
+import sys
+import yaml
 import mod_utilities as MU
 import markdown_scanner as MS
 
 def main():
     ''' '''
-    rules = input("Add rules (path) > ")
-    repo = input("Repo location (dir) > ")
-    output = input("reports location (dir) > ")
-    files = MU.get_files(repo)
-    print(files)
+
+    if sys.argv[1]:
+        jobfile = sys.argv[[1]]
+    else:
+        print("Need a rules files.")
+        exit
+
+    with open (jobfile, "r") as stream:
+        config = yaml.load(stream, Loader=yaml.CLoader)
+
+    files = MU.get_files(config["repo"])
 
     report = [["ID", "Path", "Score"]]
     jsondump = {}
@@ -19,7 +26,7 @@ def main():
         print(f)
         try:
             check = MS.MDScanner()
-            assess = check.validate_with_rules(rules, f)
+            assess = check.validate_with_rules(config["rules"], f)
             row = []
             count += 1
             row.append(count)
@@ -27,11 +34,11 @@ def main():
             row.append(assess["score"])
             report.append(row)
             jsondump[count] = assess
-        except:
-            print("Error!")
+        except Exception as e:
+            print("Error: {}".format(e))
 
-    csvout = output + "\\report.csv"
-    jsonout = output + "\\report.json"
+    csvout = config["outputfolder"] + "\\report.csv"
+    jsonout = config["outputfolder"] + "\\report.json"
     MU.write_csv(report, csvout)
     MU.write_text(str(jsondump), jsonout)
     input("Done. Hit a key.")

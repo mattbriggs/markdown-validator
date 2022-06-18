@@ -91,7 +91,7 @@ class MDHandler():
 
 
     def operate_starts(self, in_string, in_value):
-        '''Evaluate if a string is starts another string. Case sensitive.'''
+        '''Evaluate if a string starts another string. Case sensitive.'''
         return in_string.startswith(in_value.strip())
 
 
@@ -243,6 +243,8 @@ class MDHandler():
                     return self.operate_not(result, in_value)
                 elif operator == "[]":
                     return self.operate_contains(result, in_value)
+                elif operator == "r":
+                     return bool(re.match(in_value, result))
                 else:
                     return False
             except:
@@ -258,7 +260,7 @@ class MDHandler():
             return self.eval_date(result, operator, in_value)
         elif flag.lower() == "pattern":
             result = str(in_json[keyword])
-            return bool(re.match(result, in_value))
+            return bool(re.search(in_value, result))
 
 
     def get_page(self, infile):

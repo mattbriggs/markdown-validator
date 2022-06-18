@@ -108,7 +108,7 @@ Each rule contains the following attributes:
 | ID | number | Yes and must be unique. | The alias for the rule that used when constructing the workflow. The ID   must be a number and must be unique in the context of a document. |
 | Query | string | Yes | Header: The key for the metadata   value.<br>Body: This is the xpath query that returns a result from the   document.<br><br>Body rules also support references to other   rules. For example: {29} as the query would run the new rule on the result of   rule ID 29. |
 | Filter | string | No | Contains a regex. |
-| Flag | Enumeration:<br>check<br>value<br>date<br>regex<br>type<br>all | Yes | Selects the modes of the check.<br><br>For header:<br>- **Check** will check if the value is present. Used for checking for the presence of a key in the metadata value (header). For a body query, will check against the node type in the document object model.<br>- **Value** will evaluate the value of the metadata with a given value and operation.<br>- **Date** will check a metadata value with a given date. Note, you can use "now" to indicate the current time.<br>- **Regex** will allow a regex pattern and check the value.<br>- **Type** will check the datatype of the item. <br>- **Count** will return the number of items found in the query. <br>**Text** will return the text of the first item returned.<br>- **All** will return the entire text of the page. |
+| Flag | Enumeration:<br>check<br>value<br>date<br>type<br>all | Yes | Selects the modes of the check.<br><br>For header:<br>- **Check** will check if the value is present. Used for checking for the presence of a key in the metadata value (header). For a body query, will check against the node type in the document object model.<br>- **Value** will evaluate the value of the metadata with a given value and operation.<br>- **Date** will check a metadata value with a given date. Note, you can use "now" to indicate the current time.<br>- **Count** will return the number of items found in the query. <br>**Text** will return the text of the first item returned.<br>- **All** will return the entire text of the page. |
 | Operation  | Enumeration (See list below) |  | Perform an operation of the query and the value. |
 | Value | string | Yes | The value used for the comparison   in the assertion.<br><br>Supports a ref to another rule. This   will compare the return of the referenced rule to the value. For example, {1} |
 | Level | Enumeration:<br>Required<br>Suggested<br> | Required | This is the level of the validation. All required validation rules must   pass for validation to pass. |
@@ -131,7 +131,7 @@ The following operations are supported and will return a tuple of (Boolean, Valu
 | p0 | Part of speech | Boolean | Will   check at the index the part of speech of the word. | /html/body/h2[1]   text [1 verb |
 | l | Character length | Boolean | Will check if less than the length   given | /html/body/h2[1] text [- 120 |
 | s | Sentence length | Boolean | Will check if less than the   length given | /html/body/h2[1]   text -] 6 |
-| regex | regex | Boolean | Will check if the items matches   a  pattern. | %%/%%/%% |
+| r | regex | Boolean | Will check if the items matches a pattern. Uses [Python flavored RegEx](https://www.w3schools.com/python/python_regex.asp). | %%/%%/%% |
 ## Parts of Speech
 
 Alphabetical list of part-of-speech tags used in the [Penn Treebank Project](https://www.seas.upenn.edu/~pdtb/).

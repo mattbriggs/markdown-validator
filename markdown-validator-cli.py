@@ -6,6 +6,7 @@
     Matt Briggs V2.0.0: 6.4.2021
 '''
 
+import sys
 import cmd
 import json
 import mod_utilities as MU
@@ -283,6 +284,10 @@ class TagTerminal(cmd.Cmd):
         print("Passed the following paramaters:")
         for i in sys.argv:
             print(i)
+        print("passed the following in the line (all):")
+        print(line)
+        print("As a list:")
+        print(line.split(" "))
         return False
 
 
