@@ -1,0 +1,4 @@
+---
+rules: <path to rules json>
+repo: <path to the root folder of target markdwon folder(s)>
+outputfolder: <path to root folder for report output>
