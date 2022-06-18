@@ -1,0 +1,25 @@
+{
+    "rules": {
+        "header": [
+            {
+                "name": "string to describe check",
+                "id": "1",
+                "query": "key",
+                "flag": "value",
+                "operation": "==",
+                "value": "value"
+            }
+        ],
+        "body": [
+            {
+                "name": "string to describe check",
+                "id": "2",
+                "query": "/html/body/h1",
+                "flag": "value",
+                "operation": "==",
+                "value": "value"
+            }
+        ]
+    },
+    "workflows": []
+}

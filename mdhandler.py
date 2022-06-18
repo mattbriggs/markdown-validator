@@ -67,12 +67,12 @@ class MDHandler():
 
     def operate_greater(self, in_string, in_value):
         '''Evaluate if the result is greater than the value.'''
-        return bool((in_string).strip() > str(in_value).strip())
+        return bool(in_string > in_value)
 
 
     def operate_less(self, in_string, in_value):
         '''Evaluate if the result is less than the value.'''
-        return bool((in_string).strip() < str(in_value).strip())
+        return bool(in_string < in_value)
 
 
     def operate_not(self, in_string, in_value):
@@ -172,9 +172,9 @@ class MDHandler():
                 if operator == "==":
                     v = self.operate_equal(r, in_value)
                 elif operator == ">":
-                    v =  self.operate_greater(r, in_value)
+                    v = self.operate_greater(int(r), int(in_value))
                 elif operator == "<":
-                    v =  self.operate_less(r, in_value)
+                    v =  self.operate_less(int(r), int(in_value))
                 elif operator == "!=":
                     v =  self.operate_not(r, in_value)
                 elif operator == "[]":

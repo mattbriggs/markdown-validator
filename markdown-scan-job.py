@@ -8,7 +8,7 @@ def main():
     ''' '''
 
     if sys.argv[1]:
-        jobfile = sys.argv[[1]]
+        jobfile = sys.argv[1]
     else:
         print("Need a rules files.")
         exit
