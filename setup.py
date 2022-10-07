@@ -16,7 +16,7 @@ setup(
                         'html2text==2020.1.16',
                         'importlib-metadata==4.11.4',
                         'iniconfig==1.1.1',
-                        'joblib==1.1.0',
+                        'joblib==1.2.0',
                         'lxml==4.9.0',
                         'Markdown==3.3.7',
                         'nltk==3.7',
