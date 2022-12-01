@@ -7,7 +7,7 @@ Classes for the runner.
 
 import sys
 import json
-import mdrunner as RUN
+import markdownvalidator.mdrunner as RUN
 
 class Workflow():
     """Class to process a workflow object.

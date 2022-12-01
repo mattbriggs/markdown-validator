@@ -1,7 +1,6 @@
 from setuptools import setup
 
-setup(
-    name='markdownvalidator',
+setup(name='markdownvalidator',
     version='0.1.0',    
     description='A markdownparser and validator.',
     url='https://github.com/mattbriggs/markdown-validator',
@@ -31,11 +30,5 @@ setup(
                         'tqdm==4.64.0',
                         'zipp==3.8.0',
                       ],
-    classifiers=[
-        'Development Status :: 1 - Planning',
-        'Intended Audience :: Science/Research',
-        'License :: OSI Approved :: BSD License',  
-        'Operating System :: POSIX :: Linux',        
-        'Programming Language :: Python :: 3.9',
-    ],
+    zip_safe=False
 )

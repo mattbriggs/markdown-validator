@@ -7,8 +7,8 @@ Module contains the classes for the rules.
 
 '''
 
-import mdhandler as HA
-import mdparser as PA
+import markdownvalidator.mdhandler as HA
+import markdownvalidator.mdparser as PA
 
 class Rule():
     """Contains the attributes of a rule.

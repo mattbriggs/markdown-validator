@@ -9,8 +9,8 @@
 import sys
 import cmd
 import json
-import mod_utilities as MU
-import mdhandler as HA
+import markdownvalidator.mod_utilities as MU
+import markdownvalidator.mdhandler as HA
 
 APPVERSION = "Markdown Validator Command Line Interface Tool Version 1.0.0.20210604\n"
 PAGE_HOLD = ""

@@ -4,7 +4,7 @@ Classes for the parser.
 - MDParser, the Parser logic for a markdown file.
 '''
 
-import mod_utilities as MU
+import markdownvalidator.mod_utilities as MU
 import markdown
 
 

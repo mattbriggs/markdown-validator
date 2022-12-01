@@ -7,12 +7,12 @@
 
 import json
 from lxml import etree
-import mod_utilities as MU
-import mdparser as PA
+import markdownvalidator.mod_utilities as MU
+import markdownvalidator.mdparser as PA
 from datetime import date, datetime, timedelta
 import re
 import html2text
-import mdpartofspeech as POS
+import markdownvalidator.mdpartofspeech as POS
 
 class MDHandler():
     '''Object that contains the logic for processing queries.'''

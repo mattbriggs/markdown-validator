@@ -1,9 +1,9 @@
 '''
 Unit tests using pytest for mdhandler.py (MDHandler class).
 '''
-import mdhandler as HA
+import markdownvalidator.mdhandler as HA
 
-single_file = r"C:\git\mb\markdown-validator\testdata\azure-stack-overview.md"
+single_file = r"C:\git\mb\markdown-validator\markdownvalidator\testdata\azure-stack-overview.md"
 handler = HA.MDHandler()
 page = handler.get_page(single_file)
 

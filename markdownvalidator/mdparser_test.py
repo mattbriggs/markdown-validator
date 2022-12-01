@@ -1,9 +1,9 @@
 '''
 Unit tests using pytest for mdparser.py (MDParser class).
 '''
-import mdparser as PA
+import markdownvalidator.mdparser as PA
 
-single_file = r"C:\git\mb\markdown-validator\testdata\azure-stack-overview.md"
+single_file = r"C:\git\mb\markdown-validator\markdownvalidator\testdata\azure-stack-overview.md"
 
 
 def test_class_get_raw_body():

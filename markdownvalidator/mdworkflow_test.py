@@ -3,8 +3,8 @@ Unit tests using pytest for mdworkflow.py.
 '''
 
 import json
-import mdrules as RU
-import mdworkflow as WOR
+import markdownvalidator.mdrules as RU
+import markdownvalidator.mdworkflow as WOR
 
 
 def validate_with_rules(rule_json_file, markdown_file):
@@ -25,8 +25,8 @@ def validate_with_workflows(rules, rule_json_file, workflow):
     
     return workflow
 
-rule_json_file = r"C:\git\mb\markdown-validator\testdata\checkworkflow.json"
-markdown_file = r"C:\git\mb\markdown-validator\testdata\azure-stack-overview.md"
+rule_json_file = r"C:\git\mb\markdown-validator\markdownvalidator\testdata\checkworkflow.json"
+markdown_file = r"C:\git\mb\markdown-validator\markdownvalidator\testdata\azure-stack-overview.md"
 check_rules = validate_with_rules(rule_json_file, markdown_file)
 print("List of checks: {}".format(check_rules.checks))
 print("List of rules: {}".format(check_rules.list_of_rules))

@@ -7,6 +7,7 @@
 import os
 import csv
 
+
 def get_textfromfile(path):
     """Return text from a MD filename path.
 
@@ -17,7 +18,7 @@ def get_textfromfile(path):
         :rtype: string
         """
     textout = ""
-    fh = open(path, "r")
+    fh = open(path, "r", encoding='utf-8')
     for line in fh:
         textout += line
     fh.close()

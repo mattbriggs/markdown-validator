@@ -5,10 +5,10 @@ First version to run with complex workflows.
 '''
 
 import json
-import mdhandler as HA
-import mdrunner as RUN
-import mdrules as RU
-import mdworkflow as WOR
+import markdownvalidator.mdhandler as HA
+import markdownvalidator.mdrunner as RUN
+import markdownvalidator.mdrules as RU
+import markdownvalidator.mdworkflow as WOR
 
 
 # develop functions
