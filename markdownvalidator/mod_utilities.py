@@ -18,11 +18,14 @@ def get_textfromfile(path):
         :rtype: string
         """
     textout = ""
-    fh = open(path, "r", encoding='utf-8')
-    for line in fh:
-        textout += line
-    fh.close()
-    return textout
+    try:
+        fh = open(path, "r", encoding='utf-8')
+        for line in fh:
+            textout += line
+        fh.close()
+        return textout
+    except FileNotFoundError:
+        return ("FileNotFoundError")
 
 
 def write_text(outbody, path):
