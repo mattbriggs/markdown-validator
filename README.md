@@ -1,4 +1,4 @@
-# Validation queries specification
+# Markdown Validator using rules
 
 Matt Briggs, 10/6/2022
 
