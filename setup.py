@@ -14,7 +14,7 @@ setup(
                         'joblib==1.2.0',
                         'lxml==5.3.0',
                         'Markdown==3.3.7',
-                        'nltk==3.7',
+                        'nltk==3.9.1',
                         'packaging==21.3',
                         'pluggy==1.5.0',
                         'py==1.11.0',
