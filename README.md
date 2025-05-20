@@ -14,9 +14,6 @@ The code is a set of Python scripts for validating markdown files used in static
 builders such as [docFX](https://dotnet.github.io/docfx/) and 
 [Hugo](https://gohugo.io/).
 
-You can read the Docs at: 
-[https://blue-forest-0a98c3610.azurestaticapps.net/](https://blue-forest-0a98c3610.azurestaticapps.net/)
-
 ## The ruleset JSON document
 
 The ruleset is a JSON array. Each rule is defined with ten attributes. The rules are set of declarative assertions. They are broken into types. Metadata assertions and assertions about the body of the document. An executed rule requires as input the rule JSON declaration and a markdown file. The rule returns two values: True or False for the validity of the rule and an object found by the query.
